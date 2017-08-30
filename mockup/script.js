@@ -8,3 +8,7 @@ var map = new mapboxgl.Map({
     center: [77.5943, 12.975], // starting position [lng, lat]
     zoom: 12 // starting zoom
 });
+
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+}), 'top-left');
