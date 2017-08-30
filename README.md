@@ -22,5 +22,5 @@ Your app is ready to be deployed!
 
 ### `npm run deploy`
 
-Rebuilds the app for production and pushes the `build` folder to `gh-pages`.
-Create React App uses the homepage field to determine the root URL in the built HTML file.
+Rebuilds the app for production and pushes the `build` folder to `gh-pages`.<br>
+Create React App uses the `homepage` field in `package.json` to determine the root URL in the built HTML file.
