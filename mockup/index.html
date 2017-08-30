@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OSM Analysis Mock</title>
+
+    <!-- Assembly CSS -->
+    <link href="https://api.mapbox.com/mapbox-assembly/v0.17.0/assembly.min.css" rel="stylesheet">
+
+    <!-- Mapbox GL JS -->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.css' rel='stylesheet' />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="main.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="grid h-full">
+
+      <!-- Sidebar  -->
+      <div class="col col--1 bg-darken10 w60 sidebar-osmdash">
+
+        <!-- Navigation -->
+        <ul class="nav-list">
+          <li class="bg-gray-light-on-hover">
+            <a href="" title="Map">
+              <svg class='icon icon--l'><use xlink:href='#icon-map'/></svg>
+            </a>
+          </li>
+          <li class="bg-gray-light-on-hover">
+            <a href="" title="Compare">
+              <svg class='icon icon--l'><use xlink:href='#icon-arrow-left-right'/></svg>
+            </a>
+          </li>
+          <li class="bg-gray-light-on-hover">
+            <a href="" title="Readiness">
+              <svg class='icon icon--l'><use xlink:href='#icon-satellite'/></svg>
+            </a>
+          </li>
+        </ul>
+
+      </div>
+
+      <!-- Content -->
+      <div class="col col--11 content-osmdash">
+
+        <!-- Controls -->
+        <div class="grid">
+          <div class="absolute z1 ml24 mt12">
+            <div class='select-container'>
+              <select class='select'>
+                <option>option one</option>
+                <option>option two</option>
+              </select>
+              <div class='select-arrow'></div>
+            </div>
+          </div>
+          <div class="absolute right z1 mr24 mt12">
+            <div class='select-container'>
+              <select class='select'>
+                <option>option one</option>
+                <option>option two</option>
+              </select>
+              <div class='select-arrow'></div>
+            </div>
+          </div>
+          <div class="absolute right z1 mr24 mt60">
+            <div class='select-container'>
+              <select class='select'>
+                <option>option one</option>
+                <option>option two</option>
+              </select>
+              <div class='select-arrow'></div>
+            </div>
+          </div>
+
+          <!-- Bottom Graph Area -->
+          <div class="col col--12 absolute z1 bottom bg-gray-light h240">
+            <h1 class="align-center">Grapharea</h1>
+          </div>
+        </div>
+
+        <!-- Map Container -->
+        <div id="map">
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Assembly JS -->
+    <script async defer src="https://api.mapbox.com/mapbox-assembly/v0.17.0/assembly.js"></script>
+
+    <!-- Custom JS -->
+    <script src="script.js" charset="utf-8"></script>
+  </body>
+</html>
