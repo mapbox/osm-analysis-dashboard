@@ -28,10 +28,10 @@
     <![endif]-->
   </head>
   <body>
-    <div class="grid viewport-full">
+    <div class="flex-parent viewport-full">
 
       <!-- Sidebar  -->
-      <div class="col col--1 bg-black w36 flex-parent flex-parent--column flex-parent--space-between-main">
+      <div class="flex-child bg-black w36 flex-parent flex-parent--column flex-parent--space-between-main">
 
         <!-- Navigation -->
         <ul class="flex-child">
@@ -58,40 +58,22 @@
       </div>
 
       <!-- Content -->
-      <div class="col col--11 content-osmdash">
+      <div class="flex-child flex-child--grow">
+        <!-- Map Container -->
+        <div id="map" class="h-full"></div>
 
         <!-- Controls -->
-        <div class="grid">
-          <div class="absolute right z1 mr24 mt12">
-            <div class='select-container'>
-              <select class='select'>
-                <option>option one</option>
-                <option>option two</option>
-              </select>
-              <div class='select-arrow'></div>
-            </div>
-          </div>
-          <div class="absolute right z1 mr24 mt60">
-            <div class='select-container'>
-              <select class='select'>
-                <option>option one</option>
-                <option>option two</option>
-              </select>
-              <div class='select-arrow'></div>
-            </div>
-          </div>
-
-          <!-- Bottom Graph Area -->
-          <div class="col col--12 absolute z1 bottom bg-gray-light h240">
-            <h1 class="align-center">Grapharea</h1>
+        <div class="z1 absolute bottom w-not36 events-none">
+          <div class="w600 h180 mb36 mx-auto bg-darken75 opacity75 events-all">
+            <p class="align-center color-white txt-l txt-bold pt12">Graph</p>
           </div>
         </div>
 
-        <!-- Map Container -->
-        <div id="map">
-
+        <div class="z1 absolute top right events-none">
+          <div class="w180 h180 bg-darken75 opacity75 events-all">
+            <p class="align-center color-white txt-l txt-bold pt12">Filters</p>
+          </div>
         </div>
-
       </div>
     </div>
 

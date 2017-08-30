@@ -1,10 +1,3 @@
-/*
-Global Styles
-*/
-
-#map {
-   position:absolute;
-   top:0;
-   bottom:0;
-   width:100%;
- }
+.w-not36 {
+  width: calc(100% - 36px)!important;
+}
