@@ -14,9 +14,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "build": "react-scripts build"
   },
   "homepage": "https://mapbox.github.io/osm-analysis-dashboard"
 }
