@@ -12,13 +12,3 @@ body {
    bottom:0;
    width:100%;
  }
-
-/*
-Custom Styles
-*/
-
-ul.nav-list li {
-  padding-left: 12px;
-  padding-top: 12px;
-  padding-bottom: 12px
-}

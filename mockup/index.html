@@ -31,27 +31,30 @@
     <div class="grid h-full">
 
       <!-- Sidebar  -->
-      <div class="col col--1 bg-darken10 w60 sidebar-osmdash">
+      <div class="col col--1 bg-black w36 flex-parent flex-parent--column flex-parent--space-between-main">
 
         <!-- Navigation -->
-        <ul class="nav-list">
-          <li class="bg-gray-light-on-hover">
+        <ul class="flex-child">
+          <li class="bg-lighten25-on-hover bg-lighten25-on-active cursor-pointer px12 py12">
             <a href="" title="Map">
-              <svg class='icon icon--l'><use xlink:href='#icon-map'/></svg>
+              <svg class='icon icon--s color-white'><use xlink:href='#icon-map'/></svg>
             </a>
           </li>
-          <li class="bg-gray-light-on-hover">
+          <!-- Selected -->
+          <li class="bg-lighten25-on-hover bg-lighten25-on-active cursor-pointer px12 py12 border-l border--2 border--lighten50 is-active">
             <a href="" title="Compare">
-              <svg class='icon icon--l'><use xlink:href='#icon-arrow-left-right'/></svg>
+              <svg class='icon icon--s color-white'><use xlink:href='#icon-arrow-left-right'/></svg>
             </a>
           </li>
-          <li class="bg-gray-light-on-hover">
+          <li class="bg-lighten25-on-hover bg-lighten25-on-active cursor-pointer px12 py12">
             <a href="" title="Readiness">
-              <svg class='icon icon--l'><use xlink:href='#icon-satellite'/></svg>
+              <svg class='icon icon--s color-white'><use xlink:href='#icon-satellite'/></svg>
             </a>
           </li>
         </ul>
 
+        <!-- Spinner -->
+        <div class="flex-child loading loading--dark loading--s"></div>
       </div>
 
       <!-- Content -->
