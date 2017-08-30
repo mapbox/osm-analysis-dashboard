@@ -2,10 +2,6 @@
 Global Styles
 */
 
-body {
-  height: 100vh;
-}
-
 #map {
    position:absolute;
    top:0;
