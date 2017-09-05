@@ -17,6 +17,10 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.1/mapbox-gl-geocoder.min.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.1/mapbox-gl-geocoder.css' rel='stylesheet' />
 
+    <!-- Mapbox GL Compare Plugin -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.css' type='text/css' />
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="main.css">
 
@@ -28,6 +32,7 @@
     <![endif]-->
   </head>
   <body>
+
     <div class="flex-parent viewport-full">
 
       <!-- Sidebar  -->
@@ -60,8 +65,8 @@
       <!-- Content -->
       <div class="flex-child flex-child--grow">
         <!-- Map Container -->
-        <div id="map" class="h-full"></div>
-
+        <div id="before" class="map"></div>
+        <div id="after" class="map"></div>
         <!-- Controls -->
         <div class="z1 absolute bottom w-not36 events-none">
           <div class="w600 h180 mb36 mx-auto bg-darken75 opacity75 events-all">

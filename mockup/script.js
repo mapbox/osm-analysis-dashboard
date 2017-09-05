@@ -1,14 +1,44 @@
 // Set personal token
 mapboxgl.accessToken = 'pk.eyJ1IjoidHJpZGlwMTkzMSIsImEiOiJjajVobTc1c3MxeXNyMnFucXV5cnVyOWhvIn0.xAsGvnYs57UMqlwdAQP5nA';
 
-// Create instance of GL map
-var map = new mapboxgl.Map({
-    container: 'map', // container id
-    style: 'mapbox://styles/mapbox/dark-v9', // stylesheet location
-    center: [77.5943, 12.975], // starting position [lng, lat]
-    zoom: 12 // starting zoom
+
+var beforeMap = new mapboxgl.Map({
+    container: 'before',
+    style: 'mapbox://styles/mapbox/light-v9',
+    center: [0, 0],
+    zoom: 0
 });
 
-map.addControl(new MapboxGeocoder({
+var afterMap = new mapboxgl.Map({
+    container: 'after',
+    style: 'mapbox://styles/mapbox/dark-v9',
+    center: [0, 0],
+    zoom: 0
+});
+
+var map = new mapboxgl.Compare(beforeMap, afterMap, {
+    // Set this to enable comparing two maps by mouse movement:
+    // mousemove: true
+});
+
+beforeMap.addControl(new MapboxGeocoder({
     accessToken: mapboxgl.accessToken
 }), 'top-left');
+
+beforeMap.on('load', function() {
+    var layer1 = beforeMap.addLayer({
+        id: 'testBefore',
+        type: 'fill',
+        'source-layer': 'layer=z12',
+        source: {
+            'type' : 'vector',
+            'url' : 'mapbox://jenningsanderson.2010-Q1-agg',
+        },
+        paint : {
+            'fill-color' : '#0044b2',
+            'fill-opacity' : 1
+        }
+    });
+});
+
+
