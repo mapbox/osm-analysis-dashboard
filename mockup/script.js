@@ -13,7 +13,8 @@ var afterMap = new mapboxgl.Map({
     container: 'after',
     style: 'mapbox://styles/mapbox/dark-v9',
     center: [0, 0],
-    zoom: 0
+    zoom: 0,
+    hash: true
 });
 
 var map = new mapboxgl.Compare(beforeMap, afterMap, {
@@ -35,7 +36,17 @@ beforeMap.on('load', function() {
             'url' : 'mapbox://jenningsanderson.2010-Q1-agg',
         },
         paint : {
-            'fill-color' : '#0044b2',
+            'fill-color' : {
+                'property': 'editCount',
+                'stops': [
+                    [0, '#fff'],
+                    [500, '#ccc'],
+                    [1000, '#999'],
+                    [2500, '#666'],
+                    [5000, '#000'],
+                    [25000, '#f00']
+                ]
+            },
             'fill-opacity' : 1
         }
     });
