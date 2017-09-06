@@ -33,13 +33,13 @@
     ];
 
     var filterProperties = {
-        'editCount': {
-            'label': 'Total Edit Count',
-            'stops': [0, 100, 500, 1500, 2500, 8000]
+        'totalUsersEver': {
+            'label': 'Total Users Ever',
+            'stops': [0, 150, 500, 900, 1800, 4000]
         },
-        'editedBuildings': {
-            'label': 'Total Buildings Edited',
-            'stops': [0, 80, 250, 500, 1000, 5000]
+        'userCount': {
+            'label': 'Total Users on Tile',
+            'stops': [0, 20, 50, 100, 250, 600]
         }
     };
 
@@ -50,7 +50,7 @@
     mapboxgl.accessToken = 'pk.eyJ1IjoidHJpZGlwMTkzMSIsImEiOiJjajVobTc1c3MxeXNyMnFucXV5cnVyOWhvIn0.xAsGvnYs57UMqlwdAQP5nA';
 
     // instantiate the "before" map
-    window.beforeMap = new mapboxgl.Map({
+    var beforeMap = new mapboxgl.Map({
         container: 'before',
         style: 'mapbox://styles/mapbox/light-v9',
         center: [appState.lon, appState.lat],
@@ -70,6 +70,9 @@
         // Set this to enable comparing two maps by mouse movement:
         // mousemove: true
     });
+
+    setupPopupHandler(beforeMap);
+    setupPopupHandler(afterMap);
 
     beforeMap.once('load', function() {
         beforeMap.addSource('beforesource', {
@@ -94,6 +97,24 @@
     });
 
     
+    /*
+        Creates the click handler to show a popup
+
+        @param {MapboxGL Map} Mapbox GL Map object on which to instantiate
+    */
+    function setupPopupHandler(mapObject) {
+        var layers = Object.keys(zoomLevels);
+        mapObject.on('click', function(e) {
+            var features = mapObject.queryRenderedFeatures(e.point, {layers: layers})
+
+            if (!features.length) { return };
+            var jsonString = JSON.stringify(features[features.length-1].properties, null, 2);
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(`<pre>${jsonString}</pre>`)
+                .addTo(mapObject);
+        });
+    }
 
 
     /*
@@ -159,7 +180,7 @@
             'zoom': 1,
             'startYear': '2010-Q1',
             'endYear': '2010-Q4',
-            'filterProperty': 'editCount'
+            'filterProperty': 'totalUsersEver'
         };
     }
 
