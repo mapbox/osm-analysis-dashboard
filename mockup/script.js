@@ -33,9 +33,9 @@
     ];
 
     var filterProperties = {
-        'totalUsersEver': {
+        'allUsersEver': {
             'label': 'Total Users Ever',
-            'stops': [0, 150, 500, 900, 1800, 4000]
+            'stops': [0, 5, 15, 40, 100, 300]
         },
         'userCount': {
             'label': 'Total Users on Tile',
@@ -180,7 +180,7 @@
             'zoom': 1,
             'startYear': '2010-Q1',
             'endYear': '2010-Q4',
-            'filterProperty': 'totalUsersEver'
+            'filterProperty': 'allUsersEver'
         };
     }
 
