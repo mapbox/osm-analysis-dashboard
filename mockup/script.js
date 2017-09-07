@@ -33,7 +33,7 @@
     ];
 
     var filterProperties = {
-        'allUsersEver': {
+        'totalUsersEver': {
             'label': 'Total Users Ever',
             'stops': [0, 5, 15, 40, 100, 300]
         },
@@ -180,7 +180,7 @@
             'zoom': 1,
             'startYear': '2010-Q1',
             'endYear': '2010-Q4',
-            'filterProperty': 'allUsersEver'
+            'filterProperty': 'totalUsersEver'
         };
     }
 
@@ -191,7 +191,7 @@
         @returns {String} url to mapbox tileset
     */
     function getTileUrl(yearString) {
-        return `mapbox://jenningsanderson.${yearString}-agg`;
+        return `mapbox://jenningsanderson.${yearString}-agg-v2`;
     }
 
 })();
