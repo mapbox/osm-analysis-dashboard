@@ -96,7 +96,19 @@
         });
     });
 
-    
+    beforeMap.on('moveend', function() {
+        var center = beforeMap.getCenter();
+        var lon = center.lng;
+        var lat = center.lat;
+        var zoom = beforeMap.getZoom();
+        console.log('asdf', lon, lat, zoom);
+        setHash({
+            lon: lon,
+            lat: lat,
+            zoom: zoom
+        });
+    });
+
     /*
         Creates the click handler to show a popup
 
@@ -172,9 +184,17 @@
         @returns {JSON} object with key-value pairs
     */
     function getObjectFromHash(hash) {
-        // TODO: actually write / steal this function,
-        // currently just return a default object
-        return {
+        var queryParams = {};
+        hash = hash.substring(1); // remove starting '#'
+        var hashSplit = hash.split("?");
+        var split = hash.split('&');
+        for (var i = 0; i < split.length; i++) {
+            var temp = split[i].split("=");
+            if (temp.length == 2){
+                queryParams[temp[0]] = temp[1];
+            }            
+        }
+        var defaults = {
             'lat': 0,
             'lon': 0,
             'zoom': 1,
@@ -182,7 +202,38 @@
             'endYear': '2010-Q4',
             'filterProperty': 'totalUsersEver'
         };
+        return Object.assign(defaults, queryParams);        
     }
+
+
+    /*
+        Updates the current URL hash with properties passed in
+    */
+    function setHash(props) {
+        var currentObj = getObjectFromHash(window.location.hash);
+        var newObject = Object.assign(currentObj, props);
+        window.location.hash = objectToHash(newObject);
+    }
+
+
+    /*
+        Takes an object and returns a query-param style URL hash
+
+        @param queryObj {Object} Object to be converted
+        @returns {String} query-param style string that can be set as
+            hash
+    */
+    function objectToHash(queryObj) {
+        var paramsArray = [];
+        for (var param in queryObj) {
+            if (queryObj.hasOwnProperty(param) && queryObj[param]) {
+                var s = param + '=' + queryObj[param];
+                paramsArray.push(s);
+            }
+        }
+        return paramsArray.join('&');
+    }
+
 
     /*
         Returns the tile url for a year / quarter combination
