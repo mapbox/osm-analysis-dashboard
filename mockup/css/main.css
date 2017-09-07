@@ -1,0 +1,44 @@
+.map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: calc(100% - 240px)!important;
+}
+
+.w-not36 {
+  width: calc(100% - 36px)!important;
+}
+
+/* Legend Styles */
+
+.legend .legend-title {
+  text-align: left;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 90%;
+}
+.legend .legend-scale ul {
+  margin: 0;
+  padding: 0;
+  float: left;
+  list-style: none;
+}
+.legend .legend-scale ul li {
+  display: block;
+  float: left;
+  width: 30px;
+  margin-bottom: 6px;
+  text-align: center;
+  font-size: 60%;
+  list-style: none;
+  color: #999;
+}
+.legend ul.legend-labels li span {
+  display: block;
+  float: left;
+  height: 10px;
+  width: 30px;
+}
+.legend ul.legend-labels {
+  margin-right: 20px;
+}
