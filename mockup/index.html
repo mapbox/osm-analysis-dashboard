@@ -23,13 +23,8 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.js'></script>
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.css' type='text/css' />
 
-    <!-- Jquery UI CSS -->
-    <link rel="stylesheet" href="jquery-ui/jquery.ui.all.min.css" />
-
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/main.css">
-
-
+    <link rel="stylesheet" href="main.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -47,27 +42,20 @@
 
         <h4 class="txt-h4 color-white mt24">Select Filters</h4>
 
-        <label class='radio-container color-white py3'>
-          <input name='radio-basic' type='radio'>
-          <div class='radio radio--white mr6'></div>
-          Total Users Ever
-        </label>
-
-        <label class='radio-container color-white py3'>
-          <input name='radio-basic' type='radio'>
-          <div class='radio radio--white mr6'></div>
-          Total Users on Tile
-        </label>
+        <div class="checkbox-wrapper"></div>
 
         <hr class="bg-lighten75"/>
 
-        <h4 class="txt-h4 color-white py12">Select Range</h4>
+        <h4 class="txt-h4 color-white">Select Range</h4>
 
-        <div id="quarter">
-          <input placeholder="Select period" type="text" id="quarterpicker1" class="input color-white my6" />
-          <p class="color-white">vs</p>
-          <input placeholder="Select period" type="text" id="quarterpicker2" class="input color-white my6" />
-        </div>
+        <div class='select-container w-full' id="startYear"></div>
+
+        <p class="color-white align-center">vs</p>
+
+        <div class='select-container w-full mb12' id="endYear"></div>
+
+
+
 
         <button class='btn btn--lighten50 round my12'>Filter</button>
       </div>
@@ -85,49 +73,30 @@
         </div> -->
 
         <!-- Legend -->
-        <div class="z1 absolute top right events-none">
-          <div class="180 h180 events-all mt12 mx-neg-18">
-            <div class='legend'>
-              <div class='legend-scale'>
-                <ul class='legend-labels'>
-                  <li><span style='background:#fff;'></span>0</li>
-                  <li><span style='background:#ccc;'></span>20%</li>
-                  <li><span style='background:#aaa;'></span>40%</li>
-                  <li><span style='background:#888;'></span>60%</li>
-                  <li><span style='background:#444;'></span>80%</li>
-                  <li><span style='background:#000;'></span>100%</li>
-                </ul>
-              </div>
+
+      <div class="z1 absolute top right events-none">
+        <div class="180 h180 events-all mt12 mx-neg-18">
+          <div class="w240 px12 py12 txt-s" id="legend">
+            <div class="h12" id="legend-gradient"></div>
+            <div class="" id="legend-labels"></div>
+            <div class='grid txt-xs color-white'>
+              <div class='col flex-child--grow'>Low</div>
+              <div class='col flex-child--grow align-r'>High</div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
+    <!-- Load Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <!-- Assembly JS -->
     <script async defer src="https://api.mapbox.com/mapbox-assembly/v0.17.0/assembly.js"></script>
 
-    <!-- Jquery UI JS -->
-    <script type="text/javascript" src="js/jquery-1.4.4.js"></script>
-    <script src="js/jquery.ui.core.js"></script>
-    <script src="js/jquery.ui.widget.js"></script>
-    <script src="js/jquery.ui.datepicker.js"></script>
-    <script src="js/jquery.ui.period.datepicker.js"></script>
-
     <!-- Custom JS -->
-    <script src="js/script.js" charset="utf-8"></script>
+    <script src="script.js" charset="utf-8"></script>
 
-    <!-- Calling function for Quarter Calendar view -->
-    <script>
-      $(function() {
-        $("#quarterpicker1").datepicker({
-          quarterpicker: true
-        });
-        $("#quarterpicker2").datepicker({
-          quarterpicker: true,
-          lastDay: true
-        });
-      });
-    </script>
   </body>
 </html>
