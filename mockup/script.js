@@ -276,7 +276,7 @@
             2014: ['Q1','Q2','Q3','Q4'],
             2015: ['Q1','Q2','Q3','Q4'],
             2016: ['Q1','Q2','Q3','Q4'],
-            2017: ['Q1','Q2','Q3','Q4']
+            2017: ['Q1','Q2','Q3']
         };
         $('.date-range').append(
             $('<select/>')
@@ -284,7 +284,7 @@
                 .each(function(){
                         var keyNames = Object.keys(dateRange);
                         for (var i in keyNames) {
-                            for (var j = 0; j<keyNames[i].length; j++){
+                            for (var j = 0; j<dateRange[keyNames[i]].length; j++){
                                 $(this).append(
                                     `<option>${keyNames[i]}-${dateRange[keyNames[i]][j]}</option>`);
                             }
