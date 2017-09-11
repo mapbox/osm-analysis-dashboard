@@ -43,6 +43,7 @@
         }
     };
 
+
     var urlHash = window.location.hash;
     var appState = getObjectFromHash(urlHash);
 
@@ -60,7 +61,7 @@
     // instantiate the "after" map
     var afterMap = new mapboxgl.Map({
         container: 'after',
-        style: 'mapbox://styles/mapbox/light-v9',
+        style: 'mapbox://styles/mapbox/dark-v9',
         center: [appState.lon, appState.lat],
         zoom: appState.zoom
     });
@@ -192,7 +193,7 @@
             var temp = split[i].split("=");
             if (temp.length == 2){
                 queryParams[temp[0]] = temp[1];
-            }            
+            }
         }
         var defaults = {
             'lat': 0,
@@ -202,7 +203,7 @@
             'endYear': '2010-Q4',
             'filterProperty': 'totalUsersEver'
         };
-        return Object.assign(defaults, queryParams);        
+        return Object.assign(defaults, queryParams);
     }
 
 
@@ -245,5 +246,82 @@
         return `mapbox://jenningsanderson.${yearString}-agg-v2`;
     }
 
-})();
 
+    /*
+        Loop to populate filter properties
+    */
+    $(document).ready(function (){
+      var obj = filterProperties;
+      var labels = Object.keys(obj)
+        .map(e => filterProperties[e].label)
+        .forEach (k => {
+          var insertCheckbox = "<label class='radio-container color-white py3'>";
+              insertCheckbox += "<input name='radio-basic' type='radio'>";
+              insertCheckbox += "<div class='radio radio--white mr6'></div>";
+              insertCheckbox += k;
+              insertCheckbox += "</label>";
+          $('.checkbox-wrapper').append(insertCheckbox);
+      });
+    });
+
+    /*
+        Add Start Year Options
+    */
+    $(document).ready(function(){
+      var myDiv = document.getElementById('startYear');
+      var selectList = document.createElement('select');
+      $(selectList).addClass('select select--stroke select--stroke-lighten50 w-full my3');
+      myDiv.appendChild(selectList);
+
+      var optionList = document.createElement('option');
+      optionList.value = appState.startYear;
+      optionList.text = appState.startYear;
+
+      selectList.appendChild(optionList);
+      $(myDiv).append("<div class='select-arrow'></div>");
+    })
+
+
+    /*
+        Add End Year Options
+    */
+    $(document).ready(function(){
+      var myDiv = document.getElementById('endYear');
+      var selectList = document.createElement('select');
+      $(selectList).addClass('select select--stroke select--stroke-lighten50 w-full my3');
+      myDiv.appendChild(selectList);
+
+      var optionList = document.createElement('option');
+      optionList.value = appState.endYear;
+      optionList.text = appState.endYear;
+
+      selectList.appendChild(optionList);
+      $(myDiv).append("<div class='select-arrow'></div>");
+    })
+
+    /*
+        Generate Gradient Legend
+    */
+    var gradient = [
+        'rgba(255, 255, 255, 1)',
+        'rgba(204, 204, 204, 1)',
+        'rgba(170, 170, 170, 1)',
+        'rgba(136, 136, 136, 1)',
+        'rgba(68, 68, 68, 1)',
+        'rgba(0, 0, 0, 1)'
+      ];
+
+      var gradientCss = '(left';
+      var perc=0;
+      for (var i = 0; i < gradient.length; ++i) {
+          perc = perc+Math.random(1)*30+5;
+          gradientCss += ',' + gradient[i] + ' ' + perc + "%"  ;
+      }
+      gradientCss += ')';
+
+      $('#legend-gradient').css('background', '-webkit-linear-gradient' + gradientCss);
+      $('#legend-gradient').css('background', '-moz-linear-gradient' + gradientCss);
+      $('#legend-gradient').css('background', '-o-linear-gradient' + gradientCss);
+
+
+})();

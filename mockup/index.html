@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OSM Analysis Mock</title>
 
+
+
     <!-- Assembly CSS -->
     <link href="https://api.mapbox.com/mapbox-assembly/v0.17.0/assembly.min.css" rel="stylesheet">
 
@@ -35,31 +37,27 @@
 
     <div class="flex-parent viewport-full">
 
-      <!-- Sidebar  -->
-      <div class="flex-child bg-black w36 flex-parent flex-parent--column flex-parent--space-between-main">
+      <!-- Filters Sidebar  -->
+      <div class="flex-child bg-darken75 w240 prose flex-parent flex-parent--column px24 ">
 
-        <!-- Navigation -->
-        <ul class="flex-child">
-          <li class="bg-lighten25-on-hover bg-lighten25-on-active cursor-pointer px12 py12">
-            <a href="" title="Map">
-              <svg class='icon icon--s color-white'><use xlink:href='#icon-map'/></svg>
-            </a>
-          </li>
-          <!-- Selected -->
-          <li class="bg-lighten25-on-hover bg-lighten25-on-active cursor-pointer px12 py12 border-l border--2 border--lighten50 is-active">
-            <a href="" title="Compare">
-              <svg class='icon icon--s color-white'><use xlink:href='#icon-arrow-left-right'/></svg>
-            </a>
-          </li>
-          <li class="bg-lighten25-on-hover bg-lighten25-on-active cursor-pointer px12 py12">
-            <a href="" title="Readiness">
-              <svg class='icon icon--s color-white'><use xlink:href='#icon-satellite'/></svg>
-            </a>
-          </li>
-        </ul>
+        <h4 class="txt-h4 color-white mt24">Select Filters</h4>
 
-        <!-- Spinner -->
-        <div class="flex-child loading loading--dark loading--s pb24"></div>
+        <div class="checkbox-wrapper"></div>
+
+        <hr class="bg-lighten75"/>
+
+        <h4 class="txt-h4 color-white">Select Range</h4>
+
+        <div class='select-container w-full' id="startYear"></div>
+
+        <p class="color-white align-center">vs</p>
+
+        <div class='select-container w-full mb12' id="endYear"></div>
+
+
+
+
+        <button class='btn btn--lighten50 round my12'>Filter</button>
       </div>
 
       <!-- Content -->
@@ -68,24 +66,37 @@
         <div id="before" class="map"></div>
         <div id="after" class="map"></div>
         <!-- Controls -->
-        <div class="z1 absolute bottom w-not36 events-none">
+        <!-- <div class="z1 absolute bottom w-not36 events-none">
           <div class="w600 h180 mb36 mx-auto bg-darken75 opacity75 events-all">
             <p class="align-center color-white txt-l txt-bold pt12">Graph</p>
           </div>
-        </div>
+        </div> -->
 
-        <div class="z1 absolute top right events-none">
-          <div class="w180 h180 bg-darken75 opacity75 events-all">
-            <p class="align-center color-white txt-l txt-bold pt12">Filters</p>
+        <!-- Legend -->
+
+      <div class="z1 absolute top right events-none">
+        <div class="180 h180 events-all mt12 mx-neg-18">
+          <div class="w240 px12 py12 txt-s" id="legend">
+            <div class="h12" id="legend-gradient"></div>
+            <div class="" id="legend-labels"></div>
+            <div class='grid txt-xs color-white'>
+              <div class='col flex-child--grow'>Low</div>
+              <div class='col flex-child--grow align-r'>High</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
+    <!-- Load Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <!-- Assembly JS -->
     <script async defer src="https://api.mapbox.com/mapbox-assembly/v0.17.0/assembly.js"></script>
 
     <!-- Custom JS -->
     <script src="script.js" charset="utf-8"></script>
+
   </body>
 </html>
