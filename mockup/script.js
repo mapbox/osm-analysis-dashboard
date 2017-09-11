@@ -300,8 +300,8 @@
         Generate Gradient Legend
     */
     function generateLegend(a, b) {
-        var legends = {
-            stops: [
+        var legend = {
+            colorStops: [
                 10,
                 20,
                 40,
@@ -320,8 +320,8 @@
 
         var gradientCss = '(left';
 
-        for (var i = 0; i < legends.colorPallete.length; ++i) {
-            gradientCss += ',' + legends.colorPallete[i] + ' ' + legends.stops[i] + "%"  ;
+        for (var i = 0; i < legend.colorPallete.length; ++i) {
+            gradientCss += ',' + legend.colorPallete[i] + ' ' + legend.colorStops[i] + "%"  ;
             $('#legend-gradient').css('background', '-webkit-linear-gradient' + gradientCss);
             $('#legend-gradient').css('background', '-moz-linear-gradient' + gradientCss);
             $('#legend-gradient').css('background', '-o-linear-gradient' + gradientCss);
