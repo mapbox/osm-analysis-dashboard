@@ -110,6 +110,18 @@
         });
     });
 
+    $(document).ready(function() {
+        $('#filterBtn').click(function() {
+            var params = {
+                'startYear': $('#startYear').find('select').val(),
+                'endYear': $('#endYear').find('select').val(),
+                'filterProperty': $('[name=filter-property]:radio:checked').val()
+            };
+            setHash(params);
+            location.reload();
+        });
+    });
+
     /*
         Creates the click handler to show a popup
 
@@ -253,12 +265,17 @@
     $(document).ready(function (){
       var obj = filterProperties;
       var labels = Object.keys(obj)
-        .map(e => filterProperties[e].label)
+        .map(e => { return { value: e, label: filterProperties[e].label }})
         .forEach (k => {
+          if (appState.filterProperty) {
+            var checked = appState.filterProperty === k.value ? 'checked' : '';
+          } else {
+            var checked = '';
+          }
           var insertCheckbox = `<label class='radio-container color-white py3'>
-                                <input name='radio-basic' type='radio'>
+                                <input name='filter-property' ${checked} value='${k.value}' type='radio'>
                                 <div class='radio radio--white mr6'></div>
-                                ${k}
+                                ${k.label}
                                 </label>`
           $('.checkbox-wrapper').append(insertCheckbox);
       });
@@ -278,15 +295,20 @@
             2016: ['Q1','Q2','Q3','Q4'],
             2017: ['Q1','Q2','Q3']
         };
-        $('.date-range').append(
-            $('<select/>')
-                .addClass('select select--stroke select--stroke-lighten50 w-full my3')
-                .each(function(){
+
+        $('.date-range').each(function() {
+            var $this = $(this);
+            var thisId = $this.attr('id');
+            $this.append(
+                $('<select/>')
+                    .addClass('select select--stroke select--stroke-lighten50 w-full my3')
+                    .each(function(){
                         var keyNames = Object.keys(dateRange);
                         for (var i in keyNames) {
                             for (var j = 0; j<dateRange[keyNames[i]].length; j++){
+                                var optionValue = `${keyNames[i]}-${dateRange[keyNames[i]][j]}`
                                 $(this).append(
-                                    `<option>${keyNames[i]}-${dateRange[keyNames[i]][j]}</option>`);
+                                    `<option value='${optionValue}'>${optionValue}</option>`);
                             }
                         }
                     })
@@ -294,6 +316,14 @@
                 .append (
                     $('<div class="select-arrow"></div>')
                 );
+            var currYear = appState[thisId] || null;
+            if (currYear) {
+                $this.find('select').val(currYear);
+            }
+
+        });
+        $('.date-range')
+
         })
 
     /*
