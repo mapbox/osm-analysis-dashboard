@@ -255,73 +255,79 @@
       var labels = Object.keys(obj)
         .map(e => filterProperties[e].label)
         .forEach (k => {
-          var insertCheckbox = "<label class='radio-container color-white py3'>";
-              insertCheckbox += "<input name='radio-basic' type='radio'>";
-              insertCheckbox += "<div class='radio radio--white mr6'></div>";
-              insertCheckbox += k;
-              insertCheckbox += "</label>";
+          var insertCheckbox = `<label class='radio-container color-white py3'>
+                                <input name='radio-basic' type='radio'>
+                                <div class='radio radio--white mr6'></div>
+                                ${k}
+                                </label>`
           $('.checkbox-wrapper').append(insertCheckbox);
       });
     });
 
     /*
-        Add Start Year Options
+        Date Range
     */
     $(document).ready(function(){
-      var myDiv = document.getElementById('startYear');
-      var selectList = document.createElement('select');
-      $(selectList).addClass('select select--stroke select--stroke-lighten50 w-full my3');
-      myDiv.appendChild(selectList);
-
-      var optionList = document.createElement('option');
-      optionList.value = appState.startYear;
-      optionList.text = appState.startYear;
-
-      selectList.appendChild(optionList);
-      $(myDiv).append("<div class='select-arrow'></div>");
-    })
-
-
-    /*
-        Add End Year Options
-    */
-    $(document).ready(function(){
-      var myDiv = document.getElementById('endYear');
-      var selectList = document.createElement('select');
-      $(selectList).addClass('select select--stroke select--stroke-lighten50 w-full my3');
-      myDiv.appendChild(selectList);
-
-      var optionList = document.createElement('option');
-      optionList.value = appState.endYear;
-      optionList.text = appState.endYear;
-
-      selectList.appendChild(optionList);
-      $(myDiv).append("<div class='select-arrow'></div>");
-    })
+        let dateRange = {
+            2010: ['Q1','Q2','Q3','Q4'],
+            2011: ['Q1','Q2','Q3','Q4'],
+            2012: ['Q1','Q2','Q3','Q4'],
+            2013: ['Q1','Q2','Q3','Q4'],
+            2014: ['Q1','Q2','Q3','Q4'],
+            2015: ['Q1','Q2','Q3','Q4'],
+            2016: ['Q1','Q2','Q3','Q4'],
+            2017: ['Q1','Q2','Q3']
+        };
+        $('.date-range').append(
+            $('<select/>')
+                .addClass('select select--stroke select--stroke-lighten50 w-full my3')
+                .each(function(){
+                        var keyNames = Object.keys(dateRange);
+                        for (var i in keyNames) {
+                            for (var j = 0; j<dateRange[keyNames[i]].length; j++){
+                                $(this).append(
+                                    `<option>${keyNames[i]}-${dateRange[keyNames[i]][j]}</option>`);
+                            }
+                        }
+                    })
+                )
+                .append (
+                    $('<div class="select-arrow"></div>')
+                );
+        })
 
     /*
         Generate Gradient Legend
     */
-    var gradient = [
-        'rgba(255, 255, 255, 1)',
-        'rgba(204, 204, 204, 1)',
-        'rgba(170, 170, 170, 1)',
-        'rgba(136, 136, 136, 1)',
-        'rgba(68, 68, 68, 1)',
-        'rgba(0, 0, 0, 1)'
-      ];
+    function generateLegend(a, b) {
+        var legend = {
+            colorStops: [
+                10,
+                20,
+                40,
+                50,
+                100
+            ],
+            colorPallete: [
+                'rgba(255, 255, 255, 1)',
+                'rgba(204, 204, 204, 1)',
+                'rgba(170, 170, 170, 1)',
+                'rgba(136, 136, 136, 1)',
+                'rgba(68, 68, 68, 1)',
+                'rgba(0, 0, 0, 1)'
+            ]
+        };
 
-      var gradientCss = '(left';
-      var perc=0;
-      for (var i = 0; i < gradient.length; ++i) {
-          perc = perc+Math.random(1)*30+5;
-          gradientCss += ',' + gradient[i] + ' ' + perc + "%"  ;
-      }
-      gradientCss += ')';
+        var gradientCss = '(left';
 
-      $('#legend-gradient').css('background', '-webkit-linear-gradient' + gradientCss);
-      $('#legend-gradient').css('background', '-moz-linear-gradient' + gradientCss);
-      $('#legend-gradient').css('background', '-o-linear-gradient' + gradientCss);
-
+        for (var i = 0; i < legend.colorPallete.length; ++i) {
+            gradientCss += ',' + legend.colorPallete[i] + ' ' + legend.colorStops[i] + "%"  ;
+            $('#legend-gradient').css('background', '-webkit-linear-gradient' + gradientCss);
+            $('#legend-gradient').css('background', '-moz-linear-gradient' + gradientCss);
+            $('#legend-gradient').css('background', '-o-linear-gradient' + gradientCss);
+        }
+        gradientCss += ')';
+    }
+    generateLegend();
 
 })();
