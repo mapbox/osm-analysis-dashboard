@@ -1,49 +1,4 @@
 (function() {
-
-    var zoomLevels = {
-        'z8': {
-            'minzoom': 0,
-            'maxzoom': 4.01,
-            'multiplier': 64 * 16 * 16
-        },
-        'z10': {
-            'minzoom': 4,
-            'maxzoom': 6.01,
-            'multiplier': 64 * 16
-        },
-        'z12': {
-            'minzoom': 6,
-            'maxzoom': 9.01,
-            'multiplier': 64
-        },
-        'z15': {
-            'minzoom': 9,
-            'maxzoom': 23,
-            'multiplier': 1
-        }
-    };
-
-    var colorStops = [
-        '#fff',
-        '#ccc',
-        '#aaa',
-        '#888',
-        '#444',
-        '#000'
-    ];
-
-    var filterProperties = {
-        'totalUsersEver': {
-            'label': 'Total Users Ever',
-            'stops': [0, 5, 15, 40, 100, 300]
-        },
-        'userCount': {
-            'label': 'Total Users on Tile',
-            'stops': [0, 20, 50, 100, 250, 600]
-        }
-    };
-
-
     var urlHash = window.location.hash;
     var appState = getObjectFromHash(urlHash);
 
@@ -53,7 +8,7 @@
     // instantiate the "before" map
     var beforeMap = new mapboxgl.Map({
         container: 'before',
-        style: 'mapbox://styles/mapbox/light-v9',
+        style: 'mapbox://styles/mapbox/dark-v9',
         center: [appState.lon, appState.lat],
         zoom: appState.zoom
     });
@@ -102,7 +57,6 @@
         var lon = center.lng;
         var lat = center.lat;
         var zoom = beforeMap.getZoom();
-        console.log('asdf', lon, lat, zoom);
         setHash({
             lon: lon,
             lat: lat,
@@ -145,15 +99,16 @@
                 'type': 'fill',
                 'source': source,
                 'source-layer': 'layer=' + zoomLevel,
-                'minzoom': zoomLevels[zoomLevel].minzoom,
-                'maxzoom': zoomLevels[zoomLevel].maxzoom,
+                'minZoom': zoomLevels[zoomLevel].minzoom,
+                'maxZoom': zoomLevels[zoomLevel].maxzoom,
                 'paint': {
                     'fill-color': {
                         'property': filter,
                         'stops': getStops(filter, zoomLevel)
                     },
-                    'fill-opacity': 1
-                }
+                    'fill-opacity': 0.8
+                },
+                'filter': getFilters(filter)
             }
         });
     }
@@ -170,12 +125,15 @@
         var stops = [];
         for (var i = 0; i < 6; i++) {
             var baseValue = filterProperties[filter].stops[i];
-            console.log('base value', baseValue);
-            var value = baseValue * zoomLevels[zoomLevel].multiplier;
+            var value = baseValue * filterProperties[filter].zoomScalers[i];
             var color = colorStops[i];
             stops.push([value, color]);
         }
         return stops;
+    }
+
+    function getFilters(filter){
+      return ['has',filter]
     }
 
     /*
@@ -201,7 +159,7 @@
             'zoom': 1,
             'startYear': '2010-Q1',
             'endYear': '2010-Q4',
-            'filterProperty': 'totalUsersEver'
+            'filterProperty': 'allUsersToDate'
         };
         return Object.assign(defaults, queryParams);
     }
@@ -228,13 +186,15 @@
         var paramsArray = [];
         for (var param in queryObj) {
             if (queryObj.hasOwnProperty(param) && queryObj[param]) {
+                if ($.isNumeric(queryObj[param])){
+                  queryObj[param] = queryObj[param].toFixed(3)
+                }
                 var s = param + '=' + queryObj[param];
                 paramsArray.push(s);
             }
         }
         return paramsArray.join('&');
     }
-
 
     /*
         Returns the tile url for a year / quarter combination
@@ -243,7 +203,7 @@
         @returns {String} url to mapbox tileset
     */
     function getTileUrl(yearString) {
-        return `mapbox://jenningsanderson.${yearString}-agg-v2`;
+        return `mapbox://jenningsanderson.${yearString}-agg`;
     }
 
 
@@ -270,13 +230,13 @@
     $(document).ready(function(){
         let dateRange = {
             2010: ['Q1','Q2','Q3','Q4'],
-            2011: ['Q1','Q2','Q3','Q4'],
-            2012: ['Q1','Q2','Q3','Q4'],
-            2013: ['Q1','Q2','Q3','Q4'],
-            2014: ['Q1','Q2','Q3','Q4'],
-            2015: ['Q1','Q2','Q3','Q4'],
-            2016: ['Q1','Q2','Q3','Q4'],
-            2017: ['Q1','Q2','Q3']
+            //2011: ['Q1','Q2','Q3','Q4'],
+            //2012: ['Q1','Q2','Q3','Q4'],
+            //2013: ['Q1','Q2','Q3','Q4'],
+            //2014: ['Q1','Q2','Q3','Q4'],
+            //2015: ['Q1','Q2','Q3','Q4'],
+            2016: [/*'Q1','Q2',*/'Q3','Q4'],
+            2017: ['Q1','Q2']//,'Q3']
         };
         $('.date-range').append(
             $('<select/>')
@@ -329,5 +289,4 @@
         gradientCss += ')';
     }
     generateLegend();
-
 })();
