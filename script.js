@@ -110,7 +110,7 @@
         });
     });
 
-    $(document).ready(function() {
+    $(function() {
         $('#filterBtn').click(function() {
             var params = {
                 'startYear': $('#startYear').find('select').val(),
@@ -320,18 +320,15 @@
             if (currYear) {
                 $this.find('select').val(currYear);
             }
-
         });
-        $('.date-range')
-
-        })
+    });
 
     /*
         Generate Gradient Legend
     */
     function generateLegend(a, b) {
         var legend = {
-            colorStops: [
+            stops: [
                 10,
                 20,
                 40,
@@ -351,7 +348,7 @@
         var gradientCss = '(left';
 
         for (var i = 0; i < legend.colorPallete.length; ++i) {
-            gradientCss += ',' + legend.colorPallete[i] + ' ' + legend.colorStops[i] + "%"  ;
+            gradientCss += ',' + legend.colorPallete[i] + ' ' + legend.stops[i] + "%"  ;
             $('#legend-gradient').css('background', '-webkit-linear-gradient' + gradientCss);
             $('#legend-gradient').css('background', '-moz-linear-gradient' + gradientCss);
             $('#legend-gradient').css('background', '-o-linear-gradient' + gradientCss);
