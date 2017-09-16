@@ -82,19 +82,32 @@
         @param {MapboxGL Map} Mapbox GL Map object on which to instantiate
     */
     function setupPopupHandler(mapObject) {
+        var feat;
         var layers = Object.keys(zoomLevels);
         mapObject.on('click', function(e) {
             var features = mapObject.queryRenderedFeatures(e.point, {layers: layers})
 
             if (!features.length) { return };
-            var jsonString = JSON.stringify(features[features.length-1].properties, null, 2);
+            if (features.length==1){
+              feat = features[0]
+            }else{
+              var l = features[0].properties.quadkey.length;
+              var idx = 0;
+              for(var i in features){
+                if (features[i].properties.quadkey.length > l){
+                  l = features[i].properties.quadkey.length;
+                  idx = i;
+                }
+              }
+              feat = features[idx]
+            }
+            var jsonString = JSON.stringify(feat.properties, null, 2);
             new mapboxgl.Popup()
                 .setLngLat(e.lngLat)
                 .setHTML(`<pre>${jsonString}</pre>`)
                 .addTo(mapObject);
         });
     }
-
 
     /*
         Get JSON for all layers that can be added to the map per zoom level
@@ -199,7 +212,7 @@
         for (var param in queryObj) {
             if (queryObj.hasOwnProperty(param) && queryObj[param]) {
                 if ($.isNumeric(queryObj[param])){
-                  queryObj[param] = queryObj[param].toFixed(3)
+                  queryObj[param] = Number(queryObj[param]).toFixed(3)
                 }
                 var s = param + '=' + queryObj[param];
                 paramsArray.push(s);

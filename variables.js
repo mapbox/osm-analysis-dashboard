@@ -4,11 +4,18 @@
 var filterProperties = {
     'allUsersToDate': {
         'label': 'Total Users to Date',
-        'stops': [0, 5, 15, 40, 100, 300]
+        'stops': [0, 5, 15, 40, 100, 300],
+        'zoomScalers' : [1,1,1,1,1,1] // This is an averaged property, not a summed property.
+    },
+    'usersOnTile': {
+        'label': 'Users active per quarter',
+        'stops': [0,10,20,30,40,50],
+        'zoomScalars': [1,1,1,1,1,1]
     },
     'editCount': {
         'label': 'Edited Objects',
-        'stops': [0, 20, 50, 100, 250, 600]
+        'stops': [0, 20, 50, 100, 250, 600],
+        'zoomScalers' : [1,1,1,1,1,1] // This is an averaged property, not a summed property.
     },
     'namedHighwayDensity':{
       'label' : 'Named Highway Density',
@@ -19,20 +26,20 @@ var filterProperties = {
 
 var zoomLevels = {
     'z8': {
-        'minzoom': 0,
-        'maxzoom': 4.01,
+        'minZoom': 0,
+        'maxZoom': 4.01,
     },
     'z10': {
-        'minzoom': 4,
-        'maxzoom': 6.01,
+        'minZoom': 4,
+        'maxZoom': 6.01,
     },
     'z12': {
-        'minzoom': 6,
-        'maxzoom': 9.01,
+        'minZoom': 6,
+        'maxZoom': 9.01,
     },
     'z15': {
-        'minzoom': 9,
-        'maxzoom': 23,
+        'minZoom': 9,
+        'maxZoom': 23,
     }
 };
 
