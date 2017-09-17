@@ -150,7 +150,7 @@
         var stops = [];
         for (var i = 0; i < 6; i++) {
             var baseValue = filterProperties[filter].stops[i];
-            var value = baseValue * filterProperties[filter].zoomScalers[i];
+            var value = baseValue * filterProperties[filter].zoomScalars[i];
             var color = colorStops[i];
             stops.push([value, color]);
         }
