@@ -15,7 +15,7 @@ var filterProperties = {
     'editCount': {
         'label': 'Edited Objects',
         'stops': [0, 20, 50, 100, 250, 600],
-        'zoomScalers' : [1,1,1,1,1,1] // This is an averaged property, not a summed property.
+        'zoomScalers' : [1,1,1,1,1,1] // This is a summed property, not averaged or Normalized
     },
     'namedHighwayDensity':{
       'label' : 'Named Highway Density',
