@@ -22,7 +22,7 @@ var filterProperties = {
     },
     'namedHighwayDensity':{
       'label' : 'Named Highway Density',
-      'desc'  : "Kilometers of road that contain a <code>name</code> attribute.",
+      'desc'  : "Kilometers of road that contain a <code>name</code> attribute, normalized by square kilometer (km of highway per square kilometer of map area)",
       'stops' : [0, 1, 2, 4, 8, 16],
       'zoomScalars' : [1,1,1,1,1,1] // This is an averaged property, not a summed property.
     }
