@@ -44,12 +44,12 @@ var zoomLevels = {
 };
 
 var colorStops = [
-    '#fff',
-    '#ccc',
-    '#aaa',
-    '#888',
-    '#444',
-    '#000'
+    '#f0f9e8',
+    '#ccebc5',
+    '#a8ddb5',
+    '#7bccc4',
+    '#43a2ca',
+    '#0868ac'
 ];
 /*
 var colorStops = [

@@ -8,7 +8,7 @@
     // instantiate the "before" map
     var beforeMap = new mapboxgl.Map({
         container: 'before',
-        style: 'mapbox://styles/mapbox/dark-v9',
+        style: 'mapbox://styles/mapbox/light-v9',
         center: [appState.lon, appState.lat],
         zoom: appState.zoom
     });
@@ -16,7 +16,7 @@
     // instantiate the "after" map
     var afterMap = new mapboxgl.Map({
         container: 'after',
-        style: 'mapbox://styles/mapbox/dark-v9',
+        style: 'mapbox://styles/mapbox/light-v9',
         center: [appState.lon, appState.lat],
         zoom: appState.zoom
     });
@@ -37,7 +37,7 @@
         });
         var beforeLayers = getAllLayers('beforesource', appState.filterProperty, zoomLevels);
         beforeLayers.forEach(function(layer) {
-            beforeMap.addLayer(layer);
+            beforeMap.addLayer(layer, 'place-islands');
         });
     });
 
@@ -48,7 +48,7 @@
         });
         var afterLayers = getAllLayers('aftersource', appState.filterProperty, zoomLevels);
         afterLayers.forEach(function(layer) {
-            afterMap.addLayer(layer);
+            afterMap.addLayer(layer, 'place-islands');
         });
     });
 
@@ -305,19 +305,19 @@
     function generateLegend(a, b) {
         var legend = {
             colorStops: [
-                10,
                 20,
                 40,
-                50,
+                60,
+                80,
                 100
             ],
             colorPallete: [
-                'rgba(255, 255, 255, 1)',
-                'rgba(204, 204, 204, 1)',
-                'rgba(170, 170, 170, 1)',
-                'rgba(136, 136, 136, 1)',
-                'rgba(68, 68, 68, 1)',
-                'rgba(0, 0, 0, 1)'
+                '#f0f9e8',
+                '#ccebc5',
+                '#a8ddb5',
+                '#7bccc4',
+                '#43a2ca',
+                '#0868ac'
             ]
         };
 
