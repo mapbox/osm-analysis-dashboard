@@ -238,18 +238,20 @@
     $(document).ready(function (){
       var obj = filterProperties;
       var labels = Object.keys(obj)
-        .map(e => { return { value: e, label: filterProperties[e].label }})
+        .map(e => { return { value: e, label: filterProperties[e].label, desc: filterProperties[e].desc }})
         .forEach (k => {
           if (appState.filterProperty) {
             var checked = appState.filterProperty === k.value ? 'checked' : '';
           } else {
             var checked = '';
           }
+          console.log(k)
           var insertCheckbox = `<label class='radio-container color-white py3'>
                                 <input name='filter-property' ${checked} value='${k.value}' type='radio'>
                                 <div class='radio radio--white mr6'></div>
                                 ${k.label}
-                                </label>`
+                              </label>
+                              <p class="ml12 prose color-white txt txt-xs">${k.desc}</p>`
           $('.checkbox-wrapper').append(insertCheckbox);
       });
     });
