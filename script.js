@@ -37,7 +37,7 @@
         });
         var beforeLayers = getAllLayers('beforesource', appState.filterProperty, zoomLevels);
         beforeLayers.forEach(function(layer) {
-            beforeMap.addLayer(layer);
+            beforeMap.addLayer(layer, 'place-islands');
         });
     });
 
@@ -48,7 +48,7 @@
         });
         var afterLayers = getAllLayers('aftersource', appState.filterProperty, zoomLevels);
         afterLayers.forEach(function(layer) {
-            afterMap.addLayer(layer);
+            afterMap.addLayer(layer, 'place-islands');
         });
     });
 
