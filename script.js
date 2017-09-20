@@ -305,6 +305,7 @@
     function generateLegend(a, b) {
         var legend = {
             colorStops: [
+                00,
                 20,
                 40,
                 60,
