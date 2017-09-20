@@ -28,11 +28,11 @@
     });
 
     // Add geocoder
-    var geocoder = new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken
-    });
+    //var geocoder = new MapboxGeocoder({
+    //    accessToken: mapboxgl.accessToken
+    //});
 
-    $('#geocoder').append(geocoder.onAdd(beforeMap));
+    //$('#geocoder').append(geocoder.onAdd(beforeMap));
 
     updateLegendLabels(appState);
 
@@ -348,7 +348,7 @@
         Update the label for the two maps
         And the legend title
     */
-    function updateLegendLabels(props) {        
+    function updateLegendLabels(props) {
         $('#before-label').text(props.startYear);
         $('#after-label').text(props.endYear);
         $('#legend-property').text(props.filterProperty);
