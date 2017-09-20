@@ -38,34 +38,24 @@
     <div class="flex-parent viewport-full">
 
       <!-- Filters Sidebar  -->
-      <div class="flex-child bg-darken75 w240 prose flex-parent flex-parent--column px24 ">
+      <div class="flex-child bg-darken75 w240 prose flex-parent flex-parent--column px12 ">
 
         <h4 class="txt-h4 color-white mt24">Select Filters</h4>
-
         <div class="checkbox-wrapper"></div>
-
         <hr class="bg-lighten75"/>
 
         <h4 class="txt-h4 color-white">Select Range</h4>
-
         <div class='select-container w-full date-range' id="startYear"></div>
-
         <p class="color-white align-center">vs</p>
-
         <div class='select-container w-full date-range mb12' id="endYear"></div>
 
-
-
-
         <button class='btn btn--lighten50 round my12' id='filterBtn'>Filter</button>
-
-
 
         <!-- Legend -->
         <div class="z1 color-white w240 absolute bottom left events-none px12 py12">
           <div class="h60 events-all">
             <div class="" id="legend">
-              <div class="txt-s pb6" id="legend-heading">Legend: Buildings added</div>
+              <div class="txt-s pb6" id="legend-heading"><strong>Legend</strong>: <span id="legend-property">Buildings added</span></div>
               <div class="h12" id="legend-gradient"></div>
               <div class="" id="legend-labels"></div>
               <div class='grid txt-xs'>
@@ -90,8 +80,8 @@
           </div>
         </div> -->
 
-        <div id="before-label" class="absolute left top bg-gray-faint px12 py6 txt-s ml240">Q2, 2010</div>
-        <div id="after-label" class="absolute right top bg-gray-faint px12 py6 txt-s">Q2, 2010</div>
+        <div id="before-label" class="z1 absolute left top bg-gray-faint px12 py6 txt-s ml240">Q2, 2010</div>
+        <div id="after-label" class="z1 absolute right top bg-gray-faint px12 py6 txt-s">Q2, 2010</div>
 
     </div>
   </div>
