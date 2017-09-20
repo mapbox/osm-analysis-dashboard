@@ -27,6 +27,15 @@
         // mousemove: true
     });
 
+    // Add geocoder
+    //var geocoder = new MapboxGeocoder({
+    //    accessToken: mapboxgl.accessToken
+    //});
+
+    //$('#geocoder').append(geocoder.onAdd(beforeMap));
+
+    updateLegendLabels(appState);
+
     setupPopupHandler(beforeMap);
     setupPopupHandler(afterMap);
 
@@ -297,7 +306,8 @@
             }
 
         });
-        $('.date-range')
+
+        // $('.date-range')
 
         })
 
@@ -307,6 +317,7 @@
     function generateLegend(a, b) {
         var legend = {
             colorStops: [
+                00,
                 20,
                 40,
                 60,
@@ -334,4 +345,16 @@
         gradientCss += ')';
     }
     generateLegend();
+
+    /*
+        Update the label for the two maps
+        And the legend title
+    */
+    function updateLegendLabels(props) {
+        $('#before-label').text(props.startYear);
+        $('#after-label').text(props.endYear);
+        $('#legend-property').text(props.filterProperty);
+        //Ideally we should show filter title, not id
+        //Need to update the legend min max to actual values here
+    }
 })();

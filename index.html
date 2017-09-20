@@ -4,9 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>OSM Analysis Mock</title>
-
-
+    <title>OSM Analysis Dashboard</title>
 
     <!-- Assembly CSS -->
     <link href="https://api.mapbox.com/mapbox-assembly/v0.17.0/assembly.min.css" rel="stylesheet">
@@ -38,30 +36,41 @@
     <div class="flex-parent viewport-full">
 
       <!-- Filters Sidebar  -->
-      <div class="flex-child bg-darken75 w240 prose flex-parent flex-parent--column px24 ">
+      <div class="flex-child bg-darken75 w240 prose flex-parent flex-parent--column px12 pt12 color-white">
 
-        <h4 class="txt-h4 color-white mt24">Select Filters</h4>
-
+        <h3 class="txt-h3">OSM Analysis</h3>
+        <div class="">Compare properties of OSM data between two quarters.</div>
+        <h4 class="txt-h4">Select property:</h4>
         <div class="checkbox-wrapper"></div>
 
-        <hr class="bg-lighten75"/>
+        <!-- <hr class="bg-lighten75"/> -->
 
-        <h4 class="txt-h4 color-white">Select Range</h4>
-
+        <h4 class="txt-h4 ">Select quarters:</h4>
         <div class='select-container w-full date-range' id="startYear"></div>
-
-        <p class="color-white align-center">vs</p>
-
+        <p class="color-white align-center mb3">vs</p>
         <div class='select-container w-full date-range mb12' id="endYear"></div>
 
+        <button class='btn btn--lighten50 round my12' id='filterBtn'>Compare quarters</button>
 
+        <!-- Legend -->
+        <div class="z1 w240 absolute bottom left events-none px12 py12">
+          <div class="h60 events-all">
+            <div class="" id="legend">
+              <div class="txt-s pb6" id="legend-heading"><strong>Legend</strong>: <span id="legend-property">Buildings added</span></div>
+              <div class="h12" id="legend-gradient"></div>
+              <div class="" id="legend-labels"></div>
+              <div class='grid txt-xs'>
+                <div class='col flex-child--grow'>Low</div>
+                <div class='col flex-child--grow align-r'>High</div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-
-        <button class='btn btn--lighten50 round my12' id='filterBtn'>Filter</button>
       </div>
 
       <!-- Content -->
-      <div class="flex-child flex-child--grow">
+      <div class="flex-parent flex-parent--space-between-main flex-child flex-child--grow">
         <!-- Map Container -->
         <div id="before" class="map"></div>
         <div id="after" class="map"></div>
@@ -72,20 +81,16 @@
           </div>
         </div> -->
 
-        <!-- Legend -->
+        <!-- <div id="before-label" class="z1 absolute left top bg-gray-faint px6 py3 txt-s ml240">Q2, 2010</div>
+        <div id="after-label" class="z1 absolute right top bg-gray-faint px6 py3 txt-s">Q2, 2010</div> -->
+        <div id="before-label" class="z1 bg-gray-faint px6 py3 txt-s h24">Q2, 2010</div>
+        <div id="geocoder" class="z1 mt12"></div>
+        <div id="after-label" class="z1 bg-gray-faint px6 py3 txt-s h24">Q2, 2010</div>
 
-      <div class="z1 absolute top right events-none">
-        <div class="180 h180 events-all mt12 mx-neg-18">
-          <div class="w240 px12 py12 txt-s" id="legend">
-            <div class="h12" id="legend-gradient"></div>
-            <div class="" id="legend-labels"></div>
-            <div class='grid txt-xs color-white'>
-              <div class='col flex-child--grow'>Low</div>
-              <div class='col flex-child--grow align-r'>High</div>
-            </div>
-          </div>
-        </div>
-      </div>
+        <!-- Ugly way to add a geocoder in the *center* -->
+        <!-- <div class="ml240"> -->
+          <!-- <div id="geocoder" class="z1"></div> -->
+        <!-- </div> -->
     </div>
   </div>
 
