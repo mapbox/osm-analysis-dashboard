@@ -27,6 +27,13 @@
         // mousemove: true
     });
 
+    // Add geocoder
+    var geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken
+    });
+
+    $('#geocoder').append(geocoder.onAdd(beforeMap));
+
     updateLegendLabels(appState);
 
     setupPopupHandler(beforeMap);
