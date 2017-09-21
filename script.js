@@ -90,6 +90,10 @@
 
         @param {MapboxGL Map} Mapbox GL Map object on which to instantiate
     */
+
+    //Commenting out the clickable popup code
+
+    /*
     function setupPopupHandler(mapObject) {
         var feat;
         var layers = Object.keys(zoomLevels);
@@ -116,6 +120,53 @@
                 .setHTML(`<pre>${jsonString}</pre>`)
                 .addTo(mapObject);
         });
+    }*/
+
+    /*
+        Creates a hover handler to show a popup on hover
+
+        @param {MapboxGL Map} Mapbox GL Map object on which to instantiate
+    */
+    function setupPopupHandler(mapObject) {
+        var feat;
+        var layers = Object.keys(zoomLevels);
+
+         // Create a popup, but don't add it to the map yet.
+        var popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false
+        });
+
+        mapObject.on('mousemove', function(e) {
+            var features = mapObject.queryRenderedFeatures(e.point, {layers: layers})
+            if(!features.length) {
+                // Remove hand pointer & popup
+                mapObject.getCanvas().style.cursor = '';
+                popup.remove();
+                return ;
+            } else if (features.length==1){
+              feat = features[0];
+            } else {
+              var l = features[0].properties.quadkey.length;
+              var idx = 0;
+              for(var i in features){
+                if (features[i].properties.quadkey.length > l){
+                  l = features[i].properties.quadkey.length;
+                  idx = i;
+                }
+              }
+              feat = features[idx];
+            }
+            // Change the cursor style as a UI indicator.
+            mapObject.getCanvas().style.cursor = 'pointer';
+
+            // Show popup where the mouse is, with selected filter property
+            var msgHTML = "<strong>"+filterProperties[appState.filterProperty].label+"</strong>: "
+                          +feat.properties[appState.filterProperty];
+            popup.setLngLat(e.lngLat)
+                 .setHTML(msgHTML)
+                 .addTo(mapObject);
+        });
     }
 
     /*
@@ -133,8 +184,8 @@
                 'type': 'fill',
                 'source': source,
                 'source-layer': 'layer=' + zoomLevel,
-                'minZoom': zoomLevels[zoomLevel].minzoom,
-                'maxZoom': zoomLevels[zoomLevel].maxzoom,
+                'minzoom': zoomLevels[zoomLevel].minZoom,
+                'maxzoom': zoomLevels[zoomLevel].maxZoom,
                 'paint': {
                     'fill-color': {
                         'property': filter,
@@ -143,7 +194,7 @@
                     'fill-opacity': 0.8
                 },
                 'filter': getFilters(filter)
-            }
+            };
         });
     }
 
@@ -254,7 +305,7 @@
           } else {
             var checked = '';
           }
-          console.log(k)
+          // console.log(k)
           var insertCheckbox = `<label class='radio-container color-white py3'>
                                 <input name='filter-property' ${checked} value='${k.value}' type='radio'>
                                 <div class='radio radio--white mr6'></div>

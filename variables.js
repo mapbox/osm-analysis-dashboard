@@ -31,18 +31,18 @@ var filterProperties = {
 var zoomLevels = {
     'z8': {
         'minZoom': 0,
-        'maxZoom': 4.01,
+        'maxZoom': 5,
     },
     'z10': {
-        'minZoom': 4,
-        'maxZoom': 6.01,
+        'minZoom': 5,
+        'maxZoom': 7,
     },
     'z12': {
-        'minZoom': 6,
-        'maxZoom': 9.01,
+        'minZoom': 7,
+        'maxZoom': 10,
     },
     'z15': {
-        'minZoom': 9,
+        'minZoom': 10,
         'maxZoom': 23,
     }
 };
