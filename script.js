@@ -130,8 +130,6 @@
     function setupPopupHandler(mapObject) {
         var feat;
         var layers = Object.keys(zoomLevels);
-        // var props = Object.keys(filterProperties);
-        console.log(filterProperties);
 
          // Create a popup, but don't add it to the map yet.
         var popup = new mapboxgl.Popup({
@@ -186,8 +184,8 @@
                 'type': 'fill',
                 'source': source,
                 'source-layer': 'layer=' + zoomLevel,
-                'minZoom': zoomLevels[zoomLevel].minzoom,
-                'maxZoom': zoomLevels[zoomLevel].maxzoom,
+                'minzoom': zoomLevels[zoomLevel].minZoom,
+                'maxzoom': zoomLevels[zoomLevel].maxZoom,
                 'paint': {
                     'fill-color': {
                         'property': filter,
@@ -196,7 +194,7 @@
                     'fill-opacity': 0.8
                 },
                 'filter': getFilters(filter)
-            }
+            };
         });
     }
 
