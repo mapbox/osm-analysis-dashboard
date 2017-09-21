@@ -404,8 +404,7 @@
     function updateLegendLabels(props) {
         $('#before-label').text(props.startYear);
         $('#after-label').text(props.endYear);
-        $('#legend-property').text(props.filterProperty);
-        //Ideally we should show filter title, not id
+        $('#legend-property').text(filterProperties[props.filterProperty].label);
         //Need to update the legend min max to actual values here
     }
 })();
