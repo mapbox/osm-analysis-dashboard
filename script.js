@@ -402,9 +402,14 @@
         And the legend title
     */
     function updateLegendLabels(props) {
+        //Labels on top of the map
         $('#before-label').text(props.startYear);
         $('#after-label').text(props.endYear);
-        $('#legend-property').text(filterProperties[props.filterProperty].label);
-        //Need to update the legend min max to actual values here
+
+        //Labels in Legend
+        var currentFilter = filterProperties[props.filterProperty];
+        $('#legend-property').text(currentFilter.label);
+        $('#legend-low').text(currentFilter.stops[0]);
+        $('#legend-high').text(currentFilter.stops[5]+"+");
     }
 })();
