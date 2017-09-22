@@ -28,11 +28,11 @@
     });
 
     // Add geocoder
-    //var geocoder = new MapboxGeocoder({
-    //    accessToken: mapboxgl.accessToken
-    //});
+    var geocoder = new MapboxGeocoder({
+       accessToken: mapboxgl.accessToken
+    });
 
-    //$('#geocoder').append(geocoder.onAdd(beforeMap));
+    $('#geocoder').append(geocoder.onAdd(beforeMap));
 
     // Create a popup, but don't add it to the map yet.
     var popup = new mapboxgl.Popup({
