@@ -41,7 +41,7 @@
         <h3 class="txt-h3">OSM Analysis</h3>
         <div class="">Compare properties of OSM data between two quarters.</div>
         <h4 class="txt-h4">Select property:</h4>
-        <div class="checkbox-wrapper"></div>
+        <div class="select-container w-full filter-wrapper"></div>
 
         <!-- <hr class="bg-lighten75"/> -->
 
@@ -69,29 +69,19 @@
 
       </div>
 
-      <!-- Content -->
-      <div class="flex-parent flex-parent--space-between-main flex-child flex-child--grow">
-        <!-- Map Container -->
-        <div id="before" class="map"></div>
-        <div id="after" class="map"></div>
-        <!-- Controls -->
-        <!-- <div class="z1 absolute bottom w-not36 events-none">
-          <div class="w600 h180 mb36 mx-auto bg-darken75 opacity75 events-all">
-            <p class="align-center color-white txt-l txt-bold pt12">Graph</p>
-          </div>
-        </div> -->
+        <!-- Content -->
+        <div class="flex-parent flex-parent--space-between-main flex-child flex-child--grow">
 
-        <!-- <div id="before-label" class="z1 absolute left top bg-gray-faint px6 py3 txt-s ml240">Q2, 2010</div>
-        <div id="after-label" class="z1 absolute right top bg-gray-faint px6 py3 txt-s">Q2, 2010</div> -->
-        <div id="before-label" class="z1 bg-gray-faint px6 py3 txt-s h24">Q2, 2010</div>
-        <div id="geocoder" class="z1 mt12 h36"></div>
-        <div id="after-label" class="z1 bg-gray-faint px6 py3 txt-s h24">Q2, 2010</div>
+            <!-- Map Container -->
+            <div id="before" class="map"></div>
+            <div id="after" class="map"></div>
 
-        <!-- Ugly way to add a geocoder in the *center* -->
-        <!-- <div class="ml240"> -->
-          <!-- <div id="geocoder" class="z1"></div> -->
-        <!-- </div> -->
-    </div>
+            <!-- Labels & Geocoder -->
+            <div id="before-label" class="z1 bg-gray-faint px6 py3 txt-s h24">Q2, 2010</div>
+            <div id="geocoder" class="z1 mt12 h36"></div>
+            <div id="after-label" class="z1 bg-gray-faint px6 py3 txt-s h24">Q2, 2010</div>
+
+        </div>
   </div>
 
     <!-- Load Jquery -->
