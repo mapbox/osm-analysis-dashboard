@@ -192,7 +192,7 @@
                         'property': filter,
                         'stops': getStops(filter, zoomLevel)
                     },
-                    'fill-opacity': 0.8
+                    'fill-opacity': (source === 'beforesource')? 0.8: 1
                 },
                 'filter': getFilters(filter)
             };
