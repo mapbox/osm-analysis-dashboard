@@ -25,7 +25,14 @@ var filterProperties = {
       'desc'  : "Kilometers of road that contain a <code>name</code> attribute, normalized by square kilometer (km of highway per square kilometer of map area)",
       'stops' : [0, 1, 2, 4, 8, 16],
       'zoomScalars' : [1,1,1,1,1,1] // This is an averaged property, not a summed property.
+    },
+    'buildingDensity':{
+      'label' : 'Building Density',
+      'desc'  : "Number of buildings, normalized by square kilometer (km of buildings per square kilometer of map area)",
+      'stops' : [0, 500, 1000, 2000, 3000, 5000],
+      'zoomScalars' : [1,1,1,1,1,1] 
     }
+    
 };
 
 var zoomLevels = {
