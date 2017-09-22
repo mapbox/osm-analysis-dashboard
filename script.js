@@ -34,6 +34,14 @@
 
     //$('#geocoder').append(geocoder.onAdd(beforeMap));
 
+    // Create a popup, but don't add it to the map yet.
+    var popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+    });
+
+    var lastSourceHoveredOn = "none";
+
     updateLegendLabels(appState);
 
     setupPopupHandler(beforeMap);
@@ -131,12 +139,6 @@
         var feat;
         var layers = Object.keys(zoomLevels);
 
-         // Create a popup, but don't add it to the map yet.
-        var popup = new mapboxgl.Popup({
-            closeButton: false,
-            closeOnClick: false
-        });
-
         mapObject.on('mousemove', function(e) {
             var features = mapObject.queryRenderedFeatures(e.point, {layers: layers})
             if(!features.length) {
@@ -160,12 +162,17 @@
             // Change the cursor style as a UI indicator.
             mapObject.getCanvas().style.cursor = 'pointer';
 
+            if(!(feat.layer.source === lastSourceHoveredOn)) {
+                popup.remove();
+            }
+
             // Show popup where the mouse is, with selected filter property
             var msgHTML = "<strong>"+filterProperties[appState.filterProperty].label+"</strong>: "
                           +feat.properties[appState.filterProperty];
             popup.setLngLat(e.lngLat)
                  .setHTML(msgHTML)
                  .addTo(mapObject);
+            lastSourceHoveredOn = feat.layer.source;
         });
     }
 
