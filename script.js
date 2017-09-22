@@ -321,7 +321,7 @@
                                         var selected = '';
                                     }
                                     $(this).append(
-                                        `<option name='filter-property' value="${k.value}" ${selected}>${k.label}</option>`
+                                        `<option name='filter-property' value="${k.value}" data-description="${k.desc}">${k.label}</option>`
                                     )
                                 })
                             })
@@ -330,8 +330,15 @@
                             $('<div class="select-arrow"></div>')
                         )
 
-        $('#filter-description').html( `<p class="mt3 prose color-white txt txt-s">${filterProperties[appState.filterProperty].desc}</p>`)
-    })
+        $('#filter-description').html( `<p class="mt3 prose color-white txt txt-s" id="ptext">${filterProperties[appState.filterProperty].desc}</p>`)
+
+        // Real Time loading of description and change button color on option change
+        $('.filter-wrapper .select').change(function(){
+            var $selected = $(this).find(':selected');
+            $('#ptext').html($selected.data('description'));
+            $('#filterBtn').addClass('bg-green-light');
+            })
+        })
 
 
     /*
