@@ -141,6 +141,7 @@
 
         mapObject.on('mousemove', function(e) {
             var features = mapObject.queryRenderedFeatures(e.point, {layers: layers})
+            var featureNames = "";
             if(!features.length) {
                 // Remove hand pointer & popup
                 mapObject.getCanvas().style.cursor = '';
@@ -148,10 +149,14 @@
                 return ;
             } else if (features.length==1){
               feat = features[0];
+              featureNames = features[0].properties.quadkey;
             } else {
               var l = features[0].properties.quadkey.length;
-              var idx = 0;
+              var idx = 0;              
               for(var i in features){
+                var k=features[i].properties.quadkey;
+                console.log(k);
+                featureNames=(featureNames==='')? k: featureNames+", <br>"+k;
                 if (features[i].properties.quadkey.length > l){
                   l = features[i].properties.quadkey.length;
                   idx = i;
@@ -168,9 +173,8 @@
 
             // Show popup where the mouse is, with selected filter property
             var msgHTML = "<strong>"+filterProperties[appState.filterProperty].label+"</strong>: "
-                          +feat.properties[appState.filterProperty];
-                          //Add the line below to debug no. of tiles
-                          //+"<br>"+features.length+" tiles.";
+                          +feat.properties[appState.filterProperty]
+                          +"<br>"+features.length+" tiles: <br>"+featureNames;
             popup.setLngLat(e.lngLat)
                  .setHTML(msgHTML)
                  .addTo(mapObject);
@@ -200,7 +204,7 @@
                         'property': filter,
                         'stops': getStops(filter, zoomLevel)
                     },
-                    'fill-opacity': 1
+                    'fill-opacity': (source === 'beforesource')? 0.8 : 1
                 },
                 'filter': getFilters(filter)
             };
