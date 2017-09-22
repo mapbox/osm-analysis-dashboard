@@ -169,6 +169,8 @@
             // Show popup where the mouse is, with selected filter property
             var msgHTML = "<strong>"+filterProperties[appState.filterProperty].label+"</strong>: "
                           +feat.properties[appState.filterProperty];
+                          //Add the line below to debug no. of tiles
+                          //+"<br>"+features.length+" tiles.";
             popup.setLngLat(e.lngLat)
                  .setHTML(msgHTML)
                  .addTo(mapObject);
@@ -198,7 +200,7 @@
                         'property': filter,
                         'stops': getStops(filter, zoomLevel)
                     },
-                    'fill-opacity': 0.8
+                    'fill-opacity': 1
                 },
                 'filter': getFilters(filter)
             };
@@ -409,10 +411,14 @@
         And the legend title
     */
     function updateLegendLabels(props) {
+        //Labels on top of the map
         $('#before-label').text(props.startYear);
         $('#after-label').text(props.endYear);
-        $('#legend-property').text(props.filterProperty);
-        //Ideally we should show filter title, not id
-        //Need to update the legend min max to actual values here
+
+        //Labels in Legend
+        var currentFilter = filterProperties[props.filterProperty];
+        $('#legend-property').text(currentFilter.label);
+        $('#legend-low').text(currentFilter.stops[0]);
+        $('#legend-high').text(currentFilter.stops[5]+"+");
     }
 })();
