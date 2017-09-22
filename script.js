@@ -162,7 +162,8 @@
 
             // Show popup where the mouse is, with selected filter property
             var msgHTML = "<strong>"+filterProperties[appState.filterProperty].label+"</strong>: "
-                          +feat.properties[appState.filterProperty];
+                          +feat.properties[appState.filterProperty]
+                          +"<br>"+features.length+" tiles.";
             popup.setLngLat(e.lngLat)
                  .setHTML(msgHTML)
                  .addTo(mapObject);
