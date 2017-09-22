@@ -10,4 +10,4 @@ Instead we ask about _readiness_. This is a notion of ["fitness for purpose"](ht
 
 Using a combination of OSM datasets and open source OSM data processing tools, we create `mbtiles` tilesets of readiness statistics that can be explored and compared across a variety of dimensions with this interactive dashboard.
 
-## [More](//github.com/mapbox/osm-analysis-dashboard/wiki)
+## [See the wiki for information on each metric and calculations](//github.com/mapbox/osm-analysis-dashboard/wiki)
