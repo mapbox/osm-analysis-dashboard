@@ -303,14 +303,16 @@
         Loop to populate filter properties
     */
     $(document).ready(function () {
+        var obj = filterProperties;
+        var labels = Object.keys(obj);
+        var values = labels.map ( e => {return { value: e, label: filterProperties[e].label, desc: filterProperties[e].desc}});
+
         $('.filter-wrapper').append(
             $('<select/>')
                 .addClass('select select--stroke select--stroke-lighten50 w-full my3 select--s py3')
                 .each( function () {
-                    var obj = filterProperties;
-                    var labels = Object.keys(obj)
-                                .map ( e => {return { value: e, label: filterProperties[e].label, desc: filterProperties[e].desc}})
-                                .forEach ( k => {
+
+                                values.forEach ( k => {
                                     if (appState.filterProperty) {
                                         var selected = appState.filterProperty === k.value ? 'selected' : '';
                                     } else {
@@ -324,8 +326,11 @@
                         )
                         .append (
                             $('<div class="select-arrow"></div>')
-                        );
-                    })
+                        )
+
+        $('#filter-description').html( `<p class="mt3 prose color-white txt txt-s">${filterProperties[appState.filterProperty].desc}</p>`)
+    })
+
 
     /*
         Date Range
