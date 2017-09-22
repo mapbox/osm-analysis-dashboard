@@ -305,7 +305,7 @@
     $(document).ready(function () {
         $('.filter-wrapper').append(
             $('<select/>')
-                .addClass('select select--stroke select--stroke-lighten50 w-full my3')
+                .addClass('select select--stroke select--stroke-lighten50 w-full my3 select--s py3')
                 .each( function () {
                     var obj = filterProperties;
                     var labels = Object.keys(obj)
