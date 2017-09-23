@@ -293,6 +293,8 @@
                 }
                 var s = param + '=' + queryObj[param];
                 paramsArray.push(s);
+                //set the appState as well
+                appState[param] = queryObj[param]
             }
         }
         return paramsArray.join('&');
@@ -316,8 +318,6 @@
         var obj = filterProperties;
         var labels = Object.keys(obj);
         var values = labels.map ( e => {return { value: e, label: filterProperties[e].label, desc: filterProperties[e].desc}});
-
-        console.log(appState)
 
         $('.filter-wrapper').append(
             $('<select/>')
@@ -391,10 +391,20 @@
             if (currYear) {
                 $this.find('select').val(currYear);
             }
-
         });
-
+        //If date range is changed, then also toggle the button
+        $('.date-range .select').change(function(){
+            var $selected = $(this).find(':selected');
+            //$('#ptext').html($selected.data('description'));
+            $('#filterBtn').addClass('bg-green-light');
         })
+        //})
+
+    })
+    //kind of hacky, but better than setting on map.on('moveend')
+    $('#osm-link').on('mousedown',function(e){
+      this.href = `http://www.openstreetmap.org/#map=${Math.floor(appState.zoom)}/${appState.lat}/${appState.lon}`
+    })
 
     /*
         Generate Gradient Legend
