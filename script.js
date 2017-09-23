@@ -229,8 +229,7 @@
             var color = colorStops[i];
             stops.push([value, color]);
         }
-        console.warn(zoomLevel)
-        console.log(stops)
+
         return stops;
 
     }
@@ -318,26 +317,28 @@
         var labels = Object.keys(obj);
         var values = labels.map ( e => {return { value: e, label: filterProperties[e].label, desc: filterProperties[e].desc}});
 
+        console.log(appState)
+
         $('.filter-wrapper').append(
             $('<select/>')
                 .addClass('select select--stroke select--stroke-lighten50 w-full my3 select--s py3')
                 .each( function () {
 
-                                values.forEach ( k => {
-                                    if (appState.filterProperty) {
-                                        var selected = appState.filterProperty === k.value ? 'selected' : '';
-                                    } else {
-                                        var selected = '';
-                                    }
-                                    $(this).append(
-                                        `<option name='filter-property' value="${k.value}" data-description="${k.desc}">${k.label}</option>`
-                                    )
-                                })
-                            })
-                        )
-                        .append (
-                            $('<div class="select-arrow"></div>')
-                        )
+                values.forEach ( k => {
+                    if (appState.filterProperty) {
+                      var selected = (appState.filterProperty === k.value) ? 'selected' : '';
+                    } else {
+                      var selected = '';
+                    }
+                    $(this).append(
+                        `<option name='filter-property' ${selected} value="${k.value}" data-description="${k.desc}">${k.label}</option>`
+                    )
+                })
+            })
+        )
+        .append (
+            $('<div class="select-arrow"></div>')
+        )
 
         $('#filter-description').html( `<p class="mt3 prose color-white txt txt-s" id="ptext">${filterProperties[appState.filterProperty].desc}</p>`)
 
@@ -393,8 +394,6 @@
 
         });
 
-        // $('.date-range')
-
         })
 
     /*
@@ -448,7 +447,6 @@
     }
 
     function updateLegendAxis(filterProperty, zoom){
-      console.warn("updating legend axis with zoom: "+zoom)
       var curFilter = filterProperties[filterProperty];
       //console.warn(curFilter.stops[5]*curFilter.zoomScalars[zoomToScalarIndex(zoom)])
       $('#legend-low').text(curFilter.stops[0]*curFilter.zoomScalars[zoomToScalarIndex(zoom)] );
