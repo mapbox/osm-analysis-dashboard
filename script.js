@@ -10,7 +10,8 @@
         container: 'before',
         style: 'mapbox://styles/mapbox/light-v9',
         center: [appState.lon, appState.lat],
-        zoom: appState.zoom
+        zoom: appState.zoom,
+        //maxZoom: 12
     });
 
     // instantiate the "after" map
@@ -18,7 +19,8 @@
         container: 'after',
         style: 'mapbox://styles/mapbox/light-v9',
         center: [appState.lon, appState.lat],
-        zoom: appState.zoom
+        zoom: appState.zoom,
+        //maxZoom: 12
     });
 
     // setup compare plugin with both maps
@@ -80,6 +82,10 @@
             zoom: zoom
         });
     });
+
+    beforeMap.on('zoomend',function(){
+      updateLegendAxis(appState.filterProperty, beforeMap.getZoom())
+    })
 
     $(document).ready(function() {
         $('#filterBtn').click(function() {
@@ -219,11 +225,14 @@
         var stops = [];
         for (var i = 0; i < 6; i++) {
             var baseValue = filterProperties[filter].stops[i];
-            var value = baseValue * filterProperties[filter].zoomScalars[i];
+            var value = baseValue * filterProperties[filter].zoomScalars[zoomStrToScalarIndex(zoomLevel)];
             var color = colorStops[i];
             stops.push([value, color]);
         }
+        console.warn(zoomLevel)
+        console.log(stops)
         return stops;
+
     }
 
     function getFilters(filter){
@@ -435,7 +444,16 @@
         //Labels in Legend
         var currentFilter = filterProperties[props.filterProperty];
         $('#legend-property').text(currentFilter.label);
-        $('#legend-low').text(currentFilter.stops[0]);
-        $('#legend-high').text(currentFilter.stops[5]+"+");
+        updateLegendAxis(props.filterProperty, props.zoom);
     }
+
+    function updateLegendAxis(filterProperty, zoom){
+      console.warn("updating legend axis with zoom: "+zoom)
+      var curFilter = filterProperties[filterProperty];
+      //console.warn(curFilter.stops[5]*curFilter.zoomScalars[zoomToScalarIndex(zoom)])
+      $('#legend-low').text(curFilter.stops[0]*curFilter.zoomScalars[zoomToScalarIndex(zoom)] );
+      $('#legend-mid').html(curFilter.stops[3]*curFilter.zoomScalars[zoomToScalarIndex(zoom)] + "<br>" +(curFilter.units||""));
+      $('#legend-high').text(curFilter.stops[5]*curFilter.zoomScalars[zoomToScalarIndex(zoom)]+"+");
+    }
+
 })();
