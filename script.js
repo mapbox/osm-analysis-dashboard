@@ -331,14 +331,9 @@
                         )
 
         $('#filter-description').html( `<p class="mt3 prose color-white txt txt-s" id="ptext">${filterProperties[appState.filterProperty].desc}</p>`)
+})
 
-        // Real Time loading of description and change button color on option change
-        $('.filter-wrapper .select').change(function(){
-            var $selected = $(this).find(':selected');
-            $('#ptext').html($selected.data('description'));
-            $('#filterBtn').addClass('bg-green-light');
-            })
-        })
+
 
 
     /*
@@ -384,7 +379,16 @@
 
         });
 
-        // $('.date-range')
+        // Real Time loading of description and change button color on option change
+        $('.filter-wrapper .select').change(function(){
+            var $selected = $(this).find(':selected');
+            $('#ptext').html($selected.data('description'));
+
+        })
+        $('.select').change(function(){
+            $('#filterBtn').addClass('bg-green-light');
+        })
+
 
         })
 
