@@ -392,13 +392,6 @@
                 $this.find('select').val(currYear);
             }
         });
-        //If date range is changed, then also toggle the button
-        $('.date-range .select').change(function(){
-            var $selected = $(this).find(':selected');
-            //$('#ptext').html($selected.data('description'));
-            $('#filterBtn').addClass('bg-green-light');
-        })
-        //})
 
     })
     //kind of hacky, but better than setting on map.on('moveend')
