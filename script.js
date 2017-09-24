@@ -10,7 +10,8 @@
         container: 'before',
         style: 'mapbox://styles/mapbox/light-v9',
         center: [appState.lon, appState.lat],
-        zoom: appState.zoom
+        zoom: appState.zoom,
+        //maxZoom: 12
     });
 
     // instantiate the "after" map
@@ -18,7 +19,8 @@
         container: 'after',
         style: 'mapbox://styles/mapbox/light-v9',
         center: [appState.lon, appState.lat],
-        zoom: appState.zoom
+        zoom: appState.zoom,
+        //maxZoom: 12
     });
 
     // setup compare plugin with both maps
@@ -80,6 +82,10 @@
             zoom: zoom
         });
     });
+
+    beforeMap.on('zoomend',function(){
+      updateLegendAxis(appState.filterProperty, beforeMap.getZoom())
+    })
 
     $(document).ready(function() {
         $('#filterBtn').click(function() {
@@ -219,11 +225,13 @@
         var stops = [];
         for (var i = 0; i < 6; i++) {
             var baseValue = filterProperties[filter].stops[i];
-            var value = baseValue * filterProperties[filter].zoomScalars[i];
+            var value = baseValue * filterProperties[filter].zoomScalars[zoomStrToScalarIndex(zoomLevel)];
             var color = colorStops[i];
             stops.push([value, color]);
         }
+
         return stops;
+
     }
 
     function getFilters(filter){
@@ -285,6 +293,8 @@
                 }
                 var s = param + '=' + queryObj[param];
                 paramsArray.push(s);
+                //set the appState as well
+                appState[param] = queryObj[param]
             }
         }
         return paramsArray.join('&');
@@ -314,21 +324,21 @@
                 .addClass('select select--stroke select--stroke-lighten50 w-full my3 select--s py3')
                 .each( function () {
 
-                                values.forEach ( k => {
-                                    if (appState.filterProperty) {
-                                        var selected = appState.filterProperty === k.value ? 'selected' : '';
-                                    } else {
-                                        var selected = '';
-                                    }
-                                    $(this).append(
-                                        `<option name='filter-property' value="${k.value}" data-description="${k.desc}">${k.label}</option>`
-                                    )
-                                })
-                            })
-                        )
-                        .append (
-                            $('<div class="select-arrow"></div>')
-                        )
+                values.forEach ( k => {
+                    if (appState.filterProperty) {
+                      var selected = (appState.filterProperty === k.value) ? 'selected' : '';
+                    } else {
+                      var selected = '';
+                    }
+                    $(this).append(
+                        `<option name='filter-property' ${selected} value="${k.value}" data-description="${k.desc}">${k.label}</option>`
+                    )
+                })
+            })
+        )
+        .append (
+            $('<div class="select-arrow"></div>')
+        )
 
         $('#filter-description').html( `<p class="mt3 prose color-white txt txt-s" id="ptext">${filterProperties[appState.filterProperty].desc}</p>`)
 })
@@ -376,21 +386,24 @@
             if (currYear) {
                 $this.find('select').val(currYear);
             }
-
         });
 
-        // Real Time loading of description and change button color on option change
-        $('.filter-wrapper .select').change(function(){
-            var $selected = $(this).find(':selected');
-            $('#ptext').html($selected.data('description'));
+      //kind of hacky, but better than setting on map.on('moveend')
+      $('#osm-link').on('mousedown',function(e){
+        this.href = `http://www.openstreetmap.org/#map=${Math.floor(appState.zoom)}/${appState.lat}/${appState.lon}`
+      })
 
-        })
-        $('.select').change(function(){
-            $('#filterBtn').addClass('bg-green-light');
-        })
+      // Real Time loading of description and change button color on option change
+      $('.filter-wrapper .select').change(function(){
+          var $selected = $(this).find(':selected');
+          $('#ptext').html($selected.data('description'));
 
+      })
 
-        })
+      $('.select').change(function(){
+          $('#filterBtn').addClass('bg-green-light');
+      })
+    })
 
     /*
         Generate Gradient Legend
@@ -439,7 +452,15 @@
         //Labels in Legend
         var currentFilter = filterProperties[props.filterProperty];
         $('#legend-property').text(currentFilter.label);
-        $('#legend-low').text(currentFilter.stops[0]);
-        $('#legend-high').text(currentFilter.stops[5]+"+");
+        updateLegendAxis(props.filterProperty, props.zoom);
     }
+
+    function updateLegendAxis(filterProperty, zoom){
+      var curFilter = filterProperties[filterProperty];
+      //console.warn(curFilter.stops[5]*curFilter.zoomScalars[zoomToScalarIndex(zoom)])
+      $('#legend-low').text(curFilter.stops[0]*curFilter.zoomScalars[zoomToScalarIndex(zoom)] );
+      $('#legend-mid').html(curFilter.stops[3]*curFilter.zoomScalars[zoomToScalarIndex(zoom)] + "<br>" +(curFilter.units||""));
+      $('#legend-high').text(curFilter.stops[5]*curFilter.zoomScalars[zoomToScalarIndex(zoom)]+"+");
+    }
+
 })();
