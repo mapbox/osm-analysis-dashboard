@@ -28,7 +28,7 @@ var filterProperties = {
       'units' : 'km / sq.km.'
 
     },
-    'buildingDensity':{
+    'buildingCount_normAggArea':{
       'label' : 'Building Density',
       'desc'  : "Number of buildings, normalized by square kilometer (km of buildings per square kilometer of map area)",
       'stops' : [0, 100, 500, 1000, 3000, 5000],
