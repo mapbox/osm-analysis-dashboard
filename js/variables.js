@@ -51,6 +51,18 @@ var zoomToScalarIndex = function(zoom){
   return zoomScalarMatch[Math.floor(zoom)];
 }
 
+var lookupActiveLayerFromZoom = function(zoom){
+  if (zoom < 5){
+    return 'layer=z8'
+  }else if (zoom < 7){
+    return 'layer=z10'
+  }else if (zoom < 10){
+    return 'layer=z12'
+  }else{
+    return 'layer=z15'
+  }
+}
+
 var zoomLevels = {
     'z8': {
         'minZoom': 0,
@@ -88,3 +100,32 @@ var colorStops = [
     'rgba(0,0,0,0.8)'
 ];
 */
+
+// var ACTIVE_QUARTERS = [
+//   '2006-Q1','2006-Q2','2006-Q3','2006-Q4',
+//   '2007-Q1','2007-Q2','2007-Q3','2007-Q4',
+//   '2008-Q1','2008-Q2','2008-Q3','2008-Q4',
+//   '2009-Q1','2009-Q2','2009-Q3','2009-Q4',
+//   '2010-Q1','2010-Q2','2010-Q3','2010-Q4',
+//   '2011-Q1','2011-Q2','2011-Q3','2011-Q4',
+//   '2012-Q1','2012-Q2','2012-Q3','2012-Q4',
+//   '2013-Q1','2013-Q2','2013-Q3','2013-Q4',
+//   '2014-Q1','2014-Q2','2014-Q3','2014-Q4',
+//   '2015-Q1','2015-Q2','2015-Q3','2015-Q4',
+//   '2016-Q1','2016-Q2','2016-Q3','2016-Q4',
+//   '2017-Q1','2017-Q2'
+// ]
+
+var ACTIVE_QUARTERS = [
+  '2006-Q4',
+  '2007-Q4',
+  '2008-Q4',
+  '2009-Q4',
+  '2010-Q4',
+  '2011-Q4',
+  '2012-Q4',
+  '2013-Q4',
+  '2014-Q4',
+  '2015-Q4',
+  '2016-Q4'
+]
