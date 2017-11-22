@@ -206,7 +206,12 @@
                         'property': filter,
                         'stops': getStops(filter, zoomLevel)
                     },
-                    'fill-opacity': 1
+                    'fill-opacity': {
+                      'property':filter,
+                      'stops':[
+                        [0,0],[0.000001,1]
+                      ]
+                    }
                 },
                 'filter': getFilters(filter)
             };
@@ -246,7 +251,8 @@
         @returns {String} url to mapbox tileset
     */
     function getTileUrl(yearString) {
-        return `mapbox://jenningsanderson.${yearString}-agg`;
+        // return `mapbox://jenningsanderson.${yearString}-agg`;
+        return `mapbox://jenningsanderson.${yearString}-NorthAmerica-v1`;
     }
 
 
@@ -290,15 +296,16 @@
     */
     $(document).ready(function(){
         let dateRange = {
-            2008: ['Q2','Q4'],
-            2009: ['Q2','Q4'],
-            2010: ['Q2','Q4'],
-            2012: ['Q2','Q4'],
-            2013: ['Q2','Q4'],
-            2014: ['Q2','Q4'],
-            2015: ['Q2','Q4'],
-            2016: ['Q2','Q4'],
-            2017: ['Q1']//,'Q2']
+            2007: ['Q1','Q2','Q3','Q4'],
+            2008: ['Q1','Q2','Q3','Q4'],
+            2009: ['Q1','Q2','Q3','Q4'],
+            2010: ['Q1','Q2','Q3','Q4'],
+            2012: ['Q1','Q2','Q3','Q4'],
+            2013: ['Q1','Q2','Q3','Q4'],
+            2014: ['Q1','Q2','Q3','Q4'],
+            2015: ['Q1','Q2','Q3','Q4'],
+            2016: ['Q1','Q2','Q3','Q4'],
+            2017: ['Q1','Q2']
         };
 
         $('.date-range').each(function() {

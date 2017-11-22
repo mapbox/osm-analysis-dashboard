@@ -376,7 +376,7 @@
   })
 
   function getUserDetail(){
-    if (lookupActiveLayerFromZoom(map.getZoom())=='layer=z15'){
+    if (lookupActiveLayerFromZoom(map.getZoom())=='z15'){
       console.warn("HERE")
 
       $("#user-details tbody").empty()

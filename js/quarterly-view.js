@@ -103,9 +103,10 @@
 
             // Show popup where the mouse is, with selected filter property
             var msgHTML = "<strong>"+filterProperties[appState.filterProperty].label+"</strong>: "
-                          +feat.properties[appState.filterProperty];
+                          +feat.properties[appState.filterProperty].toFixed(6)
                           //Add the line below to debug no. of tiles
-                          //+"<br>"+features.length+" tiles.";
+                          //+"<br>"+features.length+" tiles."
+                          +"<br>"+feat.properties.quadkey.length;
             popup.setLngLat(e.lngLat)
                  .setHTML(msgHTML)
                  .addTo(mapObject);
@@ -135,7 +136,12 @@
                         'property': filter,
                         'stops': getStops(filter, zoomLevel)
                     },
-                    'fill-opacity': 1
+                    'fill-opacity': {
+                      'property':filter,
+                      'stops':[
+                        [0,0],[0.000001,1]
+                      ]
+                    }
                 },
                 'filter': getFilters(filter)
             };
@@ -174,7 +180,7 @@
         @returns {String} url to mapbox tileset
     */
     function getTileUrl(yearString) {
-        return `mapbox://jenningsanderson.${yearString}-agg`;
+        return `mapbox://jenningsanderson.${yearString}-NorthAmerica-v1`;
     }
 
 
@@ -218,15 +224,17 @@
     */
     $(document).ready(function(){
         let dateRange = {
-            2008: ['Q2','Q4'],
-            2009: ['Q2','Q4'],
-            2010: ['Q2','Q4'],
-            2012: ['Q2','Q4'],
-            2013: ['Q2','Q4'],
-            2014: ['Q2','Q4'],
-            2015: ['Q2','Q4'],
-            2016: ['Q2','Q4'],
-            2017: ['Q1']//,'Q2']
+            //2006: ['Q2','Q4'],
+            2007: ['Q1','Q2','Q3','Q4'],
+            2008: ['Q1','Q2','Q3','Q4'],
+            2009: ['Q1','Q2','Q3','Q4'],
+            2010: ['Q1','Q2','Q3','Q4'],
+            2012: ['Q1','Q2','Q3','Q4'],
+            2013: ['Q1','Q2','Q3','Q4'],
+            2014: ['Q1','Q2','Q3','Q4'],
+            2015: ['Q1','Q2','Q3','Q4'],
+            2016: ['Q1','Q2','Q3','Q4'],
+            2017: ['Q1','Q2']
         };
 
         $('.date-range').each(function() {
@@ -268,7 +276,8 @@
       })
 
       $('.select').change(function(){
-          $('#filterBtn').addClass('bg-green-light');
+        $('#filterBtn').addClass('bg-green-light');
+        $('#query-years').removeClass('bg-green-light');
       })
     })
 
@@ -353,31 +362,51 @@
   }
   map.once('load',function(){
     loadAllLayersToBackground()
+    $('#query-years').addClass('bg-green-light');
   })
 
   /*
       Query for the surrounding data in the tiles
   */
   $('#query-years').on('click',function(){
+
+    $("#avgBarChart").addClass("loading")
+
     console.warn('Querying other years for these details')
 
     //Query soure features doesn't work unless the features are actually 'visible' on the map;
     var relatedFeatures;
     var results = []
+
+    var currentQuads = _.uniq(map.queryRenderedFeatures({
+      layers:[lookupActiveLayerIDFromZoom(map.getZoom())]
+    }).map(function(x){return x.properties.quadkey}))
+
+    console.warn("Currently Visible Quadkeys: " + currentQuads.length)
+
     for (var i in ACTIVE_QUARTERS){
       console.log('querying for: ',ACTIVE_QUARTERS[i])
       relatedFeatures = map.querySourceFeatures(ACTIVE_QUARTERS[i], {
-        sourceLayer: lookupActiveLayerFromZoom(map.getZoom()),
+        sourceLayer: 'layer='+lookupActiveLayerIDFromZoom(map.getZoom()),
         filter: getFilters(appState.filterProperty)
       });
 
-      var average = _.mean(relatedFeatures.map(function(x){
+      console.log("Found " + relatedFeatures.length + " features")
+
+      var visibleRelated = relatedFeatures.filter(function(x){
+        return ( currentQuads.indexOf(x.properties.quadkey) >= 0 )
+      })
+
+      console.log("Limiting to " + visibleRelated.length + " features that are visible")
+
+      var average = _.mean(visibleRelated.map(function(x){
         return x.properties[appState.filterProperty]
       }))
       results.push({q: ACTIVE_QUARTERS[i], 'avg': Number(average)})
     }
     console.log(results)
     createAvgBarChart(results,"#avgBarChart")
+    $("#avgBarChart").removeClass("loading")
   })
 
 

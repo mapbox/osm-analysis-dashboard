@@ -1,14 +1,16 @@
-// set the dimensions and margins of the graph
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 200 - margin.left - margin.right,
-    height = 100 - margin.top - margin.bottom;
 
 function createAvgBarChart(data, container){
+
+  // set the dimensions and margins of the graph
+  var margin = {top: 10, right: 10, bottom: 70, left: 30},
+    width  = 220 - margin.left - margin.right,
+    height = 150 - margin.top - margin.bottom;
+
 
   // set the ranges
   var x = d3.scaleBand()
             .range([0, width])
-            .padding(0.1);
+            .padding(0.2);
   var y = d3.scaleLinear()
             .range([height, 0]);
 
@@ -39,11 +41,18 @@ function createAvgBarChart(data, container){
   // add the x Axis
   svg.append("g")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(x)
+         .tickValues(x.domain().filter(function(d,i){ return d.endsWith('Q1')}))
+       )
+      .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-65)");
+
 
   // add the y Axis
   svg.append("g")
-      .call(d3.axisLeft(y));
-
-
+      .call(d3.axisLeft(y)
+        .ticks(4));
 }
