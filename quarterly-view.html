@@ -17,9 +17,11 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.1/mapbox-gl-geocoder.min.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.1/mapbox-gl-geocoder.css' rel='stylesheet' />
 
-    <!-- Mapbox GL Compare Plugin -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.js'></script>
-    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.css' type='text/css' />
+    <!-- Lodash -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+
+    <!-- D3 -->
+    <script src="//d3js.org/d3.v4.min.js"></script>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="main.css">
@@ -39,19 +41,19 @@
       <div class="flex-child bg-darken75 w240 prose flex-parent flex-parent--column px12 pt12 color-white">
 
         <h3 class="txt-h3">OSM Analysis</h3>
-        <div class="">Compare properties of OSM data between two quarters.</div>
+        <div class="">View the map for any quarter</div>
         <h4 class="txt-h4">Select property:</h4>
         <div class="select-container w-full filter-wrapper"></div>
         <div id="filter-description"></div>
 
         <!-- <hr class="bg-lighten75"/> -->
 
-        <h4 class="txt-h4 ">Select quarters:</h4>
-        <div class='select-container w-full date-range' id="startYear"></div>
-        <p class="color-white align-center mb3">vs</p>
-        <div class='select-container w-full date-range mb12' id="endYear"></div>
+        <h4 class="txt-h4 ">For Quarter:</h4>
+        <div class='select-container w-full date-range' id="year"></div>
 
-        <button class='btn btn--lighten50 round my12' id='filterBtn'>Compare quarters</button>
+        <button class='btn btn--lighten50 round my6' id='filterBtn'>Load</button>
+
+        <button class='btn btn--lighten50 round my6' id='query-years'>Query</button>
 
         <!-- Useful Links -->
         <h6 class="txt-h6 mt30">Links</h4>
@@ -61,9 +63,6 @@
 
             <a href="https://www.openstreetmap.org/" id="osm-link" class="mx12" target="_blank"><svg class='icon color-white'><use xlink:href='#icon-osm'/></svg></a>
         </div>
-
-
-
         <!-- Legend -->
         <div class="z1 w240 absolute bottom left events-none px12 py12">
           <div class="h60 events-all">
@@ -85,14 +84,21 @@
         <!-- Content -->
         <div class="flex-parent flex-parent--space-between-main flex-child flex-child--grow">
 
-            <!-- Map Container -->
-            <div id="before" class="map"></div>
-            <div id="after" class="map"></div>
+          <!-- Map Container -->
+          <div id="map" class="map"></div>
 
-            <!-- Labels & Geocoder -->
-            <div id="before-label" class="z1 bg-gray-faint px6 py3 txt-s h24">Q2, 2010</div>
-            <div id="geocoder" class="z1 mt12 h36"></div>
-            <div id="after-label" class="z1 bg-gray-faint px6 py3 txt-s h24">Q2, 2010</div>
+          <!-- Labels & Geocoder -->
+          <div id="before-label" class="z1 bg-gray-faint px6 py3 txt-s h24">Q2, 2010</div>
+
+          <div id="geocoder" class="z1 mt12 mr12 h36"></div>
+
+          <div id="detail-box" class="flex-child bg-lighten75 w240 prose flex-parent flex-parent--column px6 pt6 z1 absolute right top viewport-twothirds mr12 mt60 mapboxgl-ctrl mapboxgl-ctrl-geocoder">
+            <h4 class='txt-h4 align-center'>Details<h4/>
+
+            <div id="avgBarChart">
+              <p class="prose txt-m"></p>
+            </div>
+          </div>
 
         </div>
   </div>
@@ -106,7 +112,8 @@
     <!-- Custom JS -->
     <script src="js/site.js" charset="utf-8"></script>
     <script src="js/variables.js" chareset="utf-8"></script>
-    <script src="js/compare-view.js" charset="utf-8"></script>
+    <script src="js/quarterly-view.js" charset="utf-8"></script>
+    <script src="js/graphs.js" charset="utf-8"></script>
 
   </body>
 </html>

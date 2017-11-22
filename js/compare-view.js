@@ -1,9 +1,9 @@
 (function() {
-    var urlHash = window.location.hash;
-    var appState = getObjectFromHash(urlHash);
+  var urlHash = window.location.hash;
+  var appState = getObjectFromHash(urlHash);
 
-    // Set personal token
-    mapboxgl.accessToken = 'pk.eyJ1IjoidHJpZGlwMTkzMSIsImEiOiJjajVobTc1c3MxeXNyMnFucXV5cnVyOWhvIn0.xAsGvnYs57UMqlwdAQP5nA';
+  // Set personal token
+  mapboxgl.accessToken = 'pk.eyJ1IjoidHJpZGlwMTkzMSIsImEiOiJjajVobTc1c3MxeXNyMnFucXV5cnVyOWhvIn0.xAsGvnYs57UMqlwdAQP5nA';
 
     // instantiate the "before" map
     var beforeMap = new mapboxgl.Map({
@@ -206,7 +206,12 @@
                         'property': filter,
                         'stops': getStops(filter, zoomLevel)
                     },
-                    'fill-opacity': 1
+                    'fill-opacity': {
+                      'property':filter,
+                      'stops':[
+                        [0,0],[0.000001,1]
+                      ]
+                    }
                 },
                 'filter': getFilters(filter)
             };
@@ -238,67 +243,6 @@
       return ['has',filter]
     }
 
-    /*
-        Returns a JSON object after parsing a querystring
-
-        @param hash {String} string representing query-string to parse
-        @returns {JSON} object with key-value pairs
-    */
-    function getObjectFromHash(hash) {
-        var queryParams = {};
-        hash = hash.substring(1); // remove starting '#'
-        var hashSplit = hash.split("?");
-        var split = hash.split('&');
-        for (var i = 0; i < split.length; i++) {
-            var temp = split[i].split("=");
-            if (temp.length == 2){
-                queryParams[temp[0]] = temp[1];
-            }
-        }
-        var defaults = {
-            'lat': 0,
-            'lon': 0,
-            'zoom': 1,
-            'startYear': '2010-Q2',
-            'endYear': '2010-Q4',
-            'filterProperty': 'allUsersToDate'
-        };
-        return Object.assign(defaults, queryParams);
-    }
-
-
-    /*
-        Updates the current URL hash with properties passed in
-    */
-    function setHash(props) {
-        var currentObj = getObjectFromHash(window.location.hash);
-        var newObject = Object.assign(currentObj, props);
-        window.location.hash = objectToHash(newObject);
-    }
-
-
-    /*
-        Takes an object and returns a query-param style URL hash
-
-        @param queryObj {Object} Object to be converted
-        @returns {String} query-param style string that can be set as
-            hash
-    */
-    function objectToHash(queryObj) {
-        var paramsArray = [];
-        for (var param in queryObj) {
-            if (queryObj.hasOwnProperty(param) && queryObj[param]) {
-                if ($.isNumeric(queryObj[param])){
-                  queryObj[param] = Number(queryObj[param]).toFixed(3)
-                }
-                var s = param + '=' + queryObj[param];
-                paramsArray.push(s);
-                //set the appState as well
-                appState[param] = queryObj[param]
-            }
-        }
-        return paramsArray.join('&');
-    }
 
     /*
         Returns the tile url for a year / quarter combination
@@ -307,7 +251,8 @@
         @returns {String} url to mapbox tileset
     */
     function getTileUrl(yearString) {
-        return `mapbox://jenningsanderson.${yearString}-agg`;
+        // return `mapbox://jenningsanderson.${yearString}-agg`;
+        return `mapbox://jenningsanderson.${yearString}-NorthAmerica-v1`;
     }
 
 
@@ -351,15 +296,16 @@
     */
     $(document).ready(function(){
         let dateRange = {
-            2008: ['Q2','Q4'],
-            2009: ['Q2','Q4'],
-            2010: ['Q2','Q4'],
-            2012: ['Q2','Q4'],
-            2013: ['Q2','Q4'],
-            2014: ['Q2','Q4'],
-            2015: ['Q2','Q4'],
-            2016: ['Q2','Q4'],
-            2017: ['Q1']//,'Q2']
+            2007: ['Q1','Q2','Q3','Q4'],
+            2008: ['Q1','Q2','Q3','Q4'],
+            2009: ['Q1','Q2','Q3','Q4'],
+            2010: ['Q1','Q2','Q3','Q4'],
+            2012: ['Q1','Q2','Q3','Q4'],
+            2013: ['Q1','Q2','Q3','Q4'],
+            2014: ['Q1','Q2','Q3','Q4'],
+            2015: ['Q1','Q2','Q3','Q4'],
+            2016: ['Q1','Q2','Q3','Q4'],
+            2017: ['Q1','Q2']
         };
 
         $('.date-range').each(function() {

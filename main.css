@@ -12,3 +12,11 @@
 .mapboxgl-popup {
   z-index: 1;
 }
+
+.bar { fill: steelblue; }
+
+svg text{
+  font-weight:100;
+  fill:'darkgrey';
+  font-size:1em;
+}
