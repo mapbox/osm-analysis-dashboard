@@ -3,7 +3,7 @@
   var appState = getObjectFromHash(urlHash);
 
   // Set personal token
-  mapboxgl.accessToken = 'pk.eyJ1IjoidHJpZGlwMTkzMSIsImEiOiJjajVobTc1c3MxeXNyMnFucXV5cnVyOWhvIn0.xAsGvnYs57UMqlwdAQP5nA';
+  mapboxgl.accessToken = 'pk.eyJ1IjoiamVubmluZ3NhbmRlcnNvbiIsImEiOiJjanh3amoxa2QwZ2o3M21xc3Z4M3BoM2V6In0.NodcHAA0Xha-Stu0xAinBg';
 
     // instantiate the "before" map
     var beforeMap = new mapboxgl.Map({
